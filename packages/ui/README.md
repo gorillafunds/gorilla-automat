@@ -1,19 +1,19 @@
 # @gorilla-automat/ui
 
-Provides pure TS files and a styles.min.css for all of the UI components of corporate-projects.
+Provides pure TS files and a styles.min.css for all of the UI components of Automat
 
 ## Run Locally
 
-Install dependencies (if you run it from here, dependencies for the whole monorepo get installed)
+### From packages/ui directory
 
 ```bash
-  yarn
+  pnpm dev
 ```
 
-Start the server
+### From project root
 
 ```bash
-  yarn start
+  pnpm -F ui dev
 ```
 
 ## Tech Stack
