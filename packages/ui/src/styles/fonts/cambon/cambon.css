@@ -1,0 +1,10 @@
+@layer base {
+  @font-face {
+    font-family: "Cambon";
+    src: url("./src/styles/fonts/cambon/Cambon-ExtraBold.woff2") format("woff2"),
+      url("./src/styles/fonts/cambon/Cambon-ExtraBold.woff") format("woff");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+}

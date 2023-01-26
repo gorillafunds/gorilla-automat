@@ -1,0 +1,9 @@
+@layer utilities {
+  .app-background {
+    background-image: url("./background-1.png"), url("./background-2.png"),
+      url("./background-3.png"), url("./background-4.png");
+    @apply bg-cover;
+    @apply bg-center;
+    @apply bg-no-repeat;
+  }
+}
