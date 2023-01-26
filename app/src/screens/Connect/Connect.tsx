@@ -6,11 +6,17 @@ import { Screen } from "../types"
 
 export type ConnectProps = Screen
 
-export const Connect = ({ automat }: ConnectProps) => {
+export const Connect = ({ automat, actions }: ConnectProps) => {
   const [feeConsent, setFeeConsent] = useState(false)
   const toggleConsent = () => {
     const newState = !feeConsent
     setFeeConsent(newState)
+  }
+
+  const connectWallet = async () => {
+    // Connect wallet returns a boolean, if actions.next() should be called
+    const goToNextScreen = await automat.connectWallet()
+    if (goToNextScreen) actions.next()
   }
 
   return (
@@ -25,7 +31,7 @@ export const Connect = ({ automat }: ConnectProps) => {
           <ConnectWallet
             disabled={!feeConsent}
             className="mt-6"
-            connect={automat.connectWallet}
+            connect={connectWallet}
           />
           <Checkbox
             name="feeConsent"

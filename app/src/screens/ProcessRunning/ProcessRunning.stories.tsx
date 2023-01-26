@@ -1,19 +1,20 @@
 import { Story, Meta } from "@storybook/react"
 import { ProcessRunning, ProcessRunningProps } from "./index"
+import { StorybookAutomat } from "../../lib"
 import { withMaxWidth } from "../../decorators"
-import { mockActions, storybookAutomat } from "../storybookMocks"
+import { mockActions } from "../storybookMocks"
 
 export default {
   title: "Screens/ProcessRunning",
   component: ProcessRunning,
   args: {
     actions: mockActions,
-    automat: storybookAutomat,
+    automat: new StorybookAutomat(),
   },
   decorators: [withMaxWidth],
 } as Meta<ProcessRunningProps>
 
-const Template: Story<ProcessRunningProps> = args => (
+const Template: Story<ProcessRunningProps> = (args) => (
   <ProcessRunning {...args} />
 )
 

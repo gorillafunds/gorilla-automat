@@ -1,12 +1,21 @@
 import { Layout, DisconnectWallet } from "../"
-import { useScreenLogic } from "./_useScreenLogic"
 import { Spinner } from "@gorilla-automat/ui"
 import { SequenceMap } from "@gorilla-automat/ui"
+import { AutomatConstructor } from "../../lib"
+import { useScreenLogic } from "./_useScreenLogic"
 import { useAutomatInstance } from "./_useAutomatInstance"
 
-export const AutomatApp = () => {
+export type AutomatAppProps = {
+  AutomatClass: AutomatConstructor
+}
+
+export const AutomatApp = ({ AutomatClass }: AutomatAppProps) => {
   const { CurrentScreen, actions, currentState, sequenceMap } = useScreenLogic()
-  const automat = useAutomatInstance(actions, currentState as string)
+  const automat = useAutomatInstance(
+    actions,
+    currentState as string,
+    AutomatClass,
+  )
 
   return (
     <Layout>

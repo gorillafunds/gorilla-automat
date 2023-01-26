@@ -1,21 +1,31 @@
-import { IGorillaAutomat } from "../../lib"
+import { IGorillaAutomat } from "./types.d"
 
-class StorybookAutomat implements IGorillaAutomat {
+export class StorybookAutomat implements IGorillaAutomat {
+  protected isConnected: boolean
+
+  constructor() {
+    this.isConnected = false
+  }
+
   public initializeWallet = async () => {
     return "Wallet initialized"
   }
 
   public connectWallet = async () => {
     alert("Connecting wallet...")
-    return "Wallet connected!"
+    this.isConnected = true
+    // Go to the next screen
+    return true
   }
 
   public disconnectWallet = () => {
     alert("Wallet disconnected")
+    this.isConnected = false
+    window?.location.reload()
   }
 
   public walletConnected = () => {
-    return true
+    return this.isConnected
   }
 
   public getShops = async () => {
@@ -31,8 +41,3 @@ class StorybookAutomat implements IGorillaAutomat {
     ]
   }
 }
-
-const storybookAutomatInstance = new StorybookAutomat()
-
-/** Singleton instance of StorybookAutomat */
-export default Object.freeze(storybookAutomatInstance)

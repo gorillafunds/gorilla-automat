@@ -1,4 +1,6 @@
-import { AutomatApp } from "./index"
+import { Story, Meta } from "@storybook/react"
+import { AutomatApp, AutomatAppProps } from "./index"
+import { GorillaAutomat, StorybookAutomat } from "../../lib"
 import { withIframeWarning, withBusinessLogicWarning } from "../../decorators"
 
 export default {
@@ -7,7 +9,17 @@ export default {
   parameters: {
     layout: "fullscreen",
   },
-  decorators: [withIframeWarning, withBusinessLogicWarning],
+} as Meta<AutomatAppProps>
+
+const Template: Story<AutomatAppProps> = (args) => <AutomatApp {...args} />
+
+export const WithDummyLogic = Template.bind({})
+WithDummyLogic.args = {
+  AutomatClass: StorybookAutomat,
 }
 
-export const Base = () => <AutomatApp />
+export const WithBusinessLogic = Template.bind({})
+WithBusinessLogic.args = {
+  AutomatClass: GorillaAutomat,
+}
+WithBusinessLogic.decorators = [withIframeWarning, withBusinessLogicWarning]

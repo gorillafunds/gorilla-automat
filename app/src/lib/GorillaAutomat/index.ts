@@ -1,2 +1,3 @@
 export * from "./GorillaAutomat"
-export * from "./IGorillaAutomat"
+export * from "./types.d"
+export * from "./StorybookAutomat"

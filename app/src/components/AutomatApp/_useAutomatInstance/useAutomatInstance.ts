@@ -1,30 +1,31 @@
-import { GorillaAutomat } from "../../../lib"
+import { IGorillaAutomat, AutomatConstructor } from "../../../lib"
 import { AutomatActions } from "./../types"
 
 import { useState, useEffect } from "react"
 
 export const useAutomatInstance = (
   actions: AutomatActions,
-  currentState: string
+  currentState: string,
+  AutomatClass: AutomatConstructor,
 ) => {
-  const [automat, setAutomat] = useState<GorillaAutomat>()
+  const [automat, setAutomat] = useState<IGorillaAutomat>()
 
   // Initialize instance in an async hook, because initializeWallet is async
   useEffect(() => {
     const initializeAutomat = async () => {
-      const newAutomat = new GorillaAutomat()
+      const newAutomat = new AutomatClass()
       await newAutomat.initializeWallet()
       setAutomat(newAutomat)
     }
     initializeAutomat()
-  }, [])
+  }, [AutomatClass])
 
   // Switch to second screen wallet is alreadyConnected
   useEffect(() => {
     if (automat?.walletConnected()) {
       if (currentState === "connect") actions.next()
     }
-  }, [automat])
+  }, [automat, currentState, actions])
 
   return automat
 }

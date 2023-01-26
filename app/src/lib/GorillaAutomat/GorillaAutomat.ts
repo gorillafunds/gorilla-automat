@@ -1,5 +1,5 @@
 import { Wallet, Chain, Network } from "mintbase"
-import { IGorillaAutomat } from "./IGorillaAutomat"
+import { IGorillaAutomat } from "./types.d"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet: Wallet
@@ -16,6 +16,8 @@ export class GorillaAutomat implements IGorillaAutomat {
 
   public connectWallet = async () => {
     this.wallet.connect({ requestSignIn: true })
+    // Don't call the next screen, it happens on redirect
+    return false
   }
 
   public disconnectWallet = () => {
