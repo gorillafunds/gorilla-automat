@@ -14,7 +14,15 @@ export const useShops = (getShops: IGorillaAutomat["getShops"]) => {
     }
 
     initializeShops()
-  }, [])
+  }, [getShops])
+
+  // Update sessionStorage when "selectedShop" changes
+  useEffect(() => {
+    window?.sessionStorage.setItem(
+      "gorillaAutomatShop",
+      JSON.stringify(selectedShop),
+    )
+  }, [selectedShop])
 
   return [shops, selectedShop, setSelectedShop] as const
 }
