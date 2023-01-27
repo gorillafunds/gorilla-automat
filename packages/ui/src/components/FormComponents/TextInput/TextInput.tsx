@@ -5,10 +5,11 @@ import { defaultStyles } from "../defaultStyles"
 export interface TextInputProps {
   placeholder?: string
   label: string
-  type?: "text" | "email" | "password"
+  type?: "text" | "email" | "password" | "number"
   name: string
   hasError?: boolean
   className?: string
+  value?: string | number
   onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
@@ -22,6 +23,7 @@ export const TextInput = ({
   hasError = false,
   className,
   onChange,
+  value,
 }: TextInputProps) => {
   const styles = {
     label: "text-sm font-medium text-gray-700",
@@ -40,6 +42,7 @@ export const TextInput = ({
       <div className="mt-1">
         <input
           onChange={onChange}
+          value={value}
           type={type}
           name={name}
           id={name}
