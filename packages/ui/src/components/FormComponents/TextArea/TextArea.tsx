@@ -11,6 +11,7 @@ export interface TextAreaProps {
   placeholder?: string
   className?: string
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>
+  value: string
 }
 export const TextArea = ({
   rows = 4,
@@ -20,6 +21,7 @@ export const TextArea = ({
   hasError = false,
   className,
   onChange,
+  value,
 }: TextAreaProps) => {
   const styles = clsx(
     "text-300 py-3 px-4 text-gray-1000 resize-none rounded-md",
@@ -38,6 +40,7 @@ export const TextArea = ({
         id={name}
         className={styles}
         placeholder={placeholder}
+        value={value}
       />
     </label>
   )
