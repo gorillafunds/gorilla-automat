@@ -9,11 +9,13 @@ import {
   Message,
 } from "@gorilla-automat/ui"
 import { Screen } from "../types"
+import { useSetupFields } from "./_useSetupFields"
 
 export type SetupProps = Screen
 
 // TODO: Remove divs when input and textarea are more styleable
 export const Setup = ({ actions }: SetupProps) => {
+  const [fields, handleChange, isValid] = useSetupFields()
   return (
     <WizardStep>
       <WizardStepHeader>Setup Your Batch</WizardStepHeader>
@@ -22,17 +24,25 @@ export const Setup = ({ actions }: SetupProps) => {
           className="w-full"
           label="Price of each NFT (NEAR)"
           name="price"
+          type="number"
+          value={fields.price}
+          onChange={handleChange}
         />
         <TextInput
           className="w-full"
           label="Copies of each NFT"
-          name="copies"
+          name="amount"
+          type="number"
+          value={fields.amount}
+          onChange={handleChange}
         />
         <div className="col-span-2">
           <TextInput
             className="w-full"
             label="Title of each NFT"
             name="title"
+            value={fields.title}
+            onChange={handleChange}
           />
         </div>
         <div className="col-span-2">
@@ -43,6 +53,8 @@ export const Setup = ({ actions }: SetupProps) => {
             className="w-full"
             label="Description of each NFT"
             name="description"
+            value={fields.description}
+            onChange={handleChange}
           />
         </div>
         {/* TODO: Add correct text-color from */}
@@ -53,7 +65,14 @@ export const Setup = ({ actions }: SetupProps) => {
         </Message>
       </WizardStepContent>
       <WizardStepFooter
-        buttons={[<Button onClick={actions.next} label="Proceed" key="next" />]}
+        buttons={[
+          <Button
+            disabled={!isValid}
+            onClick={actions.next}
+            label="Proceed"
+            key="next"
+          />,
+        ]}
       />
     </WizardStep>
   )
