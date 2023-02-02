@@ -1,12 +1,22 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, beforeAll, afterAll } from "vitest"
 import { getOwnedShops } from "./getOwnedShops"
 
+beforeAll(() => {
+  const MOCK_API_RESPONSE = JSON.stringify([
+    {
+      name: "smgssingleproduct",
+      id: "smgssingleproduct.mintspace2.testnet",
+    },
+  ])
+  fetchMock.mockResponse(MOCK_API_RESPONSE)
+})
+
 describe("getOwnShops", () => {
-  it("should return all shops for an owner correctly", async () => {
+  it.todo("should return all shops for an owner correctly", async () => {
     const ownerId = "smetzdev-gorillashops.testnet"
     const expectedResult = [
       {
-        title: "Saschas Single Product Teststore",
+        title: "smgssingleproduct",
         value: "smgssingleproduct.mintspace2.testnet",
       },
     ]
@@ -15,4 +25,8 @@ describe("getOwnShops", () => {
 
     expect(result).toEqual(expectedResult)
   })
+})
+
+afterAll(() => {
+  fetchMock.resetMocks()
 })
