@@ -11,6 +11,8 @@
     "noImplicitAny": true
   },
   "ts-node": {
-    "esm": true
-  }
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "lib": ["esnext"]
 }
