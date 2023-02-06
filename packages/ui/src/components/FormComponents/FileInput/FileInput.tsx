@@ -24,7 +24,8 @@ export const FileInput = ({
   }
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const [currentFile] = fileInputRef.current?.files as FileList
+    if (!fileInputRef.current) return
+    const [currentFile] = fileInputRef.current.files as FileList
 
     if (!currentFile) {
       setFile(undefined)
