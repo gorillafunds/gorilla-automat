@@ -1,3 +1,7 @@
+const dotenv = require("dotenv")
+
+dotenv.config({ path: "../.env" })
+
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(ts|tsx)"],
   addons: [
@@ -6,4 +10,8 @@ module.exports = {
     "@storybook/addon-interactions",
   ],
   framework: "@storybook/react",
+  env: (config) => ({
+    ...config,
+    GORILLA_API_URL: process.env.GORILLA_API_URL,
+  }),
 }
