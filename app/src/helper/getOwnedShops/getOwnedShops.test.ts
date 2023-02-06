@@ -12,7 +12,7 @@ beforeAll(() => {
 })
 
 describe("getOwnShops", () => {
-  it.todo("should return all shops for an owner correctly", async () => {
+  it("should return all shops for an owner correctly", async () => {
     const ownerId = "smetzdev-gorillashops.testnet"
     const expectedResult = [
       {
