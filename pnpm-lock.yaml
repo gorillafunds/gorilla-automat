@@ -53,6 +53,7 @@ importers:
       '@xstate/react': ^3.0.2
       babel-loader: ^8.3.0
       clsx: ^1.2.1
+      dotenv: ^16.0.3
       eslint: 8.32.0
       eslint-config-next: 13.1.2
       lucide-react: ^0.105.0
@@ -96,6 +97,7 @@ importers:
       '@storybook/testing-library': 0.0.13_biqbaboplfbrettd7655fr4n2y
       '@types/babel__core': 7.20.0
       babel-loader: 8.3.0_@babel+core@7.20.12
+      dotenv: 16.0.3
       next-transpile-modules: 10.0.0
       npm-run-all: 4.1.5
       tailwindcss: 3.2.4
@@ -9060,7 +9062,6 @@ packages:
   /dotenv/16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
-    dev: false
 
   /dotenv/8.6.0:
     resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
