@@ -13,7 +13,7 @@ app.get("/get-contract-stores/:contractId", async (req, res) => {
 
   const stores = await fetchStores(contractId)
 
-  res.json({ stores })
+  res.json(stores)
 })
 
 app.listen(PORT, () => {

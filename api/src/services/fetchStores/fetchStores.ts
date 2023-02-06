@@ -18,9 +18,7 @@ export const fetchStores = async (contractId: string) => {
 
   const result = await axios(options)
 
-  console.log(result.data)
-
-  return result.data.data
+  return result.data.data.nft_contracts
 }
 
 const query = gql`
