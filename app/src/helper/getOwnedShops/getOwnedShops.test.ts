@@ -16,7 +16,7 @@ describe("getOwnShops", () => {
     const ownerId = "smetzdev-gorillashops.testnet"
     const expectedResult = [
       {
-        title: "smgssingleproduct",
+        label: "smgssingleproduct",
         value: "smgssingleproduct.mintspace2.testnet",
       },
     ]

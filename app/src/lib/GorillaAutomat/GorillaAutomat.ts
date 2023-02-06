@@ -1,5 +1,6 @@
 import { Wallet, Chain, Network } from "mintbase"
 import { IGorillaAutomat } from "./types.d"
+import { getOwnedShops } from "../../helper"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet: Wallet
@@ -30,16 +31,9 @@ export class GorillaAutomat implements IGorillaAutomat {
 
   public getShops = async () => {
     if (!this.wallet) throw new Error("No wallet connected")
-    // TODO: Return actual data
-    return [
-      {
-        label: "Shop 1",
-        value: "Shop 1",
-      },
-      {
-        label: "Shop 2",
-        value: "Shop 2",
-      },
-    ]
+    const { accountId } = this.wallet.activeAccount!
+    const shops = await getOwnedShops(accountId)
+
+    return shops
   }
 }
