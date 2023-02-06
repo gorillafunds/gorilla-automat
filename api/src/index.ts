@@ -8,7 +8,6 @@ const app = express()
 const PORT = 4000
 
 app.get("/get-contract-stores/:contractId", async (req, res) => {
-  console.log(process.env)
   const { contractId } = req.params
 
   const stores = await fetchStores(contractId)
