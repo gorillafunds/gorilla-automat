@@ -1,6 +1,6 @@
 import { Wallet, Chain, Network } from "mintbase"
 import { IGorillaAutomat } from "./types.d"
-import { getOwnedShops } from "../../helper"
+import { getOwnedShops } from "../../services"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet: Wallet
