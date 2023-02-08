@@ -10,13 +10,17 @@ const defaultFields = {
 // TODO Add correct typing for useReducer
 export const useSetupFields = () => {
   const [isValid, setIsValid] = useState(false)
-  const [fields, updateFields] = useReducer(
-    (prev: any, next: any) => ({
+  const [fields, updateFields] = useReducer((prev: any, next: any) => {
+    const newValue = {
       ...prev,
       ...next,
-    }),
-    defaultFields,
-  )
+    }
+    // TODO: Remove copy limit as soon as mintbase confirms
+    // Make sure only 20 copies can be minted
+    if (newValue.amount > 20) newValue.amount = 20
+
+    return newValue
+  }, defaultFields)
 
   // Assumes that using input has a valid name (of defaultFields)
   const handleChange = (

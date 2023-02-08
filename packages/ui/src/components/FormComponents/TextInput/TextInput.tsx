@@ -10,6 +10,7 @@ export interface TextInputProps {
   hasError?: boolean
   className?: string
   value?: string | number
+  max?: number
   onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
@@ -24,6 +25,7 @@ export const TextInput = ({
   className,
   onChange,
   value,
+  max,
 }: TextInputProps) => {
   const styles = {
     label: "text-sm font-medium text-gray-700",
@@ -46,6 +48,7 @@ export const TextInput = ({
           type={type}
           name={name}
           id={name}
+          max={max}
           className={styles.input}
           placeholder={placeholder}
         />
