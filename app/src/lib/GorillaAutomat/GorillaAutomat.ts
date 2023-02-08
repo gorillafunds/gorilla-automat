@@ -1,9 +1,12 @@
 import { Wallet, Chain, Network } from "mintbase"
 import { IGorillaAutomat } from "./types.d"
 import { getOwnedShops } from "../../services"
+import { unpackZip, extractFileArrayJson } from "../../services"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet: Wallet
+  public files: File[]
+  public metaData: any
 
   public initializeWallet = async () => {
     const { data } = await new Wallet().init({
@@ -35,5 +38,14 @@ export class GorillaAutomat implements IGorillaAutomat {
     const shops = await getOwnedShops(accountId)
 
     return shops
+  }
+
+  public handleZip = async (zipFile: File) => {
+    // unpack,sanitize and process zipFile
+    const fileArray = await unpackZip(zipFile)
+    const { json, array } = await extractFileArrayJson(fileArray)
+
+    this.files = array
+    this.metaData = json
   }
 }

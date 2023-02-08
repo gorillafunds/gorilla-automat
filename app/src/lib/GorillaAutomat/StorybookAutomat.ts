@@ -2,6 +2,8 @@ import { IGorillaAutomat } from "./types.d"
 
 export class StorybookAutomat implements IGorillaAutomat {
   protected isConnected: boolean
+  public files: any
+  public meta: any
 
   constructor() {
     this.isConnected = false
@@ -39,5 +41,9 @@ export class StorybookAutomat implements IGorillaAutomat {
         value: "Shop 2",
       },
     ]
+  }
+
+  public handleZip = () => {
+    alert("Handle zip")
   }
 }

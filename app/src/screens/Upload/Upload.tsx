@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   WizardStep,
   WizardStepHeader,
@@ -13,8 +13,15 @@ import { Screen } from "../types"
 export type UploadProps = Screen
 
 // TODO: Remove span label for FileInput when FileInput is optimized
-export const Upload = ({ actions }: UploadProps) => {
+// TODO: Add correct sample zip file
+export const Upload = ({ actions, automat }: UploadProps) => {
   const [file, setFile] = useState<File>()
+
+  // Handle file change
+  useEffect(() => {
+    if (file) automat.handleZip(file)
+  }, [file, automat])
+
   return (
     <WizardStep>
       <WizardStepHeader>Upload Your NFTs</WizardStepHeader>
@@ -35,7 +42,14 @@ export const Upload = ({ actions }: UploadProps) => {
         </Message>
       </WizardStepContent>
       <WizardStepFooter
-        buttons={[<Button label="Proceed" onClick={actions.next} key="next" />]}
+        buttons={[
+          <Button
+            label="Proceed"
+            disabled={!file}
+            onClick={actions.next}
+            key="next"
+          />,
+        ]}
       />
     </WizardStep>
   )
