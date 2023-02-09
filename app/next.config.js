@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
-const withTM = require("next-transpile-modules")(["@gorilla-automat/ui"])
+const withTM = require("next-transpile-modules")([
+  "@gorilla-automat/ui",
+  "@gorilla-automat/domain",
+])
 const dotenv = require("dotenv")
 
 dotenv.config()

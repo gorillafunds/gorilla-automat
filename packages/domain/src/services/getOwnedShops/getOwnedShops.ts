@@ -11,5 +11,4 @@ export const getOwnedShops = async (ownderId: string) => {
   }))
 }
 
-// TODO Find a way to not use two ENV Vars for the same matter
 const API_URL = process.env.GORILLA_API_URL

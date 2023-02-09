@@ -1,7 +1,7 @@
 import { Layout, DisconnectWallet } from "../"
 import { Spinner } from "@gorilla-automat/ui"
 import { SequenceMap } from "@gorilla-automat/ui"
-import { AutomatConstructor } from "../../lib"
+import { AutomatConstructor } from "@gorilla-automat/domain"
 import { useScreenLogic } from "./_useScreenLogic"
 import { useAutomatInstance } from "./_useAutomatInstance"
 

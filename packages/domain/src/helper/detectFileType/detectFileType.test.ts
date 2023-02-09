@@ -1,4 +1,3 @@
-import { describe, expect, it } from "vitest"
 import { detectFileType } from "./index"
 
 describe("detectFileType", () => {

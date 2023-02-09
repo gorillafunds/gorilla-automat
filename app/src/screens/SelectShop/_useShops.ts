@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { IGorillaAutomat } from "src/lib"
+import { IGorillaAutomat } from "@gorilla-automat/domain"
 import { Option } from "@gorilla-automat/ui"
 
 export const useShops = (getShops: IGorillaAutomat["getShops"]) => {

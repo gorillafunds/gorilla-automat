@@ -1,5 +1,5 @@
 import { Button } from "@gorilla-automat/ui"
-import { IGorillaAutomat } from "../../lib"
+import { IGorillaAutomat } from "@gorilla-automat/domain"
 import { XIcon } from "lucide-react"
 
 export type DisconnectWalletProps = {

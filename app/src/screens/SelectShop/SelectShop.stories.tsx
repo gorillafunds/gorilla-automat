@@ -1,6 +1,6 @@
 import { Story, Meta } from "@storybook/react"
 import { SelectShop, SelectShopProps } from "./index"
-import { StorybookAutomat } from "../../lib"
+import { StorybookAutomat } from "@gorilla-automat/domain"
 import { withMaxWidth } from "../../decorators"
 import { mockActions } from "../storybookMocks"
 

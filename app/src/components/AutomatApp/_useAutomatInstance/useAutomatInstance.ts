@@ -1,4 +1,4 @@
-import { IGorillaAutomat, AutomatConstructor } from "../../../lib"
+import { IGorillaAutomat, AutomatConstructor } from "@gorilla-automat/domain"
 import { AutomatActions } from "./../types"
 
 import { useState, useEffect } from "react"

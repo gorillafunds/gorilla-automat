@@ -4,15 +4,15 @@ import { getOwnedShops } from "../../services"
 import { unpackZip, extractFileArrayJson } from "../../services"
 
 export class GorillaAutomat implements IGorillaAutomat {
-  private wallet: Wallet
-  public files: File[]
+  private wallet!: Wallet
+  public files!: File[]
   public metaData: any
 
   public initializeWallet = async () => {
     const { data } = await new Wallet().init({
       networkName: Network.testnet,
       chain: Chain.near,
-      apiKey: process.env.NEXT_PUBLIC_MINTBASE_API_KEY as string,
+      apiKey: process.env.MINTBASE_API_KEY as string,
     })
 
     this.wallet = data.wallet
