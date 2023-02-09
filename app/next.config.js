@@ -4,8 +4,11 @@ const withTM = require("next-transpile-modules")([
   "@gorilla-automat/domain",
 ])
 const dotenv = require("dotenv")
+const path = require("path")
 
-dotenv.config()
+// load global .env
+const dotenvPath = path.join(__dirname, "..", ".env")
+dotenv.config({ path: dotenvPath })
 
 module.exports = withTM({
   reactStrictMode: true,

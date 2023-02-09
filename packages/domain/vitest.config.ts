@@ -1,8 +1,11 @@
 /// <reference types="vitest" />
 import { defineConfig } from "vite"
 import dotenv from "dotenv"
+import path from "path"
 
-dotenv.config()
+// load global .env
+const dotenvPath = path.join(__dirname, "..", "..", ".env")
+dotenv.config({ path: dotenvPath })
 
 export default defineConfig({
   test: {

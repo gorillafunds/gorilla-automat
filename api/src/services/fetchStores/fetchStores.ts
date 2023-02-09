@@ -7,7 +7,7 @@ export const fetchStores = async (contractId: string) => {
     method: "post",
     url: "https://mintbase-testnet.hasura.app/v1/graphql/",
     headers: {
-      Authorization: `Bearer ${process.env.MINTBASE_AUTH_TOKEN}`,
+      Authorization: `Bearer ${process.env.MINTBASE_API_KEY}`,
       "Content-Type": "application/json",
     },
     data: JSON.stringify({

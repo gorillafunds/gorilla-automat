@@ -33,8 +33,3 @@ First, run the development server:
 ```bash
   pnpm -F app dev
 ```
-
-## Env Vars
-
-MINTBASE_API_KEY for mintbase authentication
-GORILLA_API_URL example: https://api.gorillashops.io

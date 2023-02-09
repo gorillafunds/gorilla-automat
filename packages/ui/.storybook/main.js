@@ -1,3 +1,10 @@
+const path = require("path")
+const dotenv = require("dotenv")
+
+// load global .env
+const dotenvPath = path.join(__dirname, "..", "..", "..", ".env")
+dotenv.config({ path: dotenvPath })
+
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(ts|tsx)"],
   addons: [

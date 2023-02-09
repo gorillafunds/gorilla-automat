@@ -26,3 +26,10 @@ If you want to find out more about pnpm, go to the docs
 
 - https://pnpm.io/
 - https://pnpm.io/workspaces
+
+## Env Vars
+
+These are referenced in every package/app
+
+MINTBASE_API_KEY for mintbase authentication
+GORILLA_API_URL example: https://api.gorillashops.io

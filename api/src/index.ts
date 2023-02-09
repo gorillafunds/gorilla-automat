@@ -2,8 +2,11 @@ import express from "express"
 import { fetchStores } from "./services"
 import dotenv from "dotenv"
 import cors from "cors"
+import path from "path"
 
-dotenv.config()
+// load global .env
+const dotenvPath = path.join("..", "..", ".env")
+dotenv.config({ path: dotenvPath })
 
 const app = express()
 app.use(cors())
