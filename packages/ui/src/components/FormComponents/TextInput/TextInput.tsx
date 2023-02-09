@@ -28,7 +28,7 @@ export const TextInput = ({
   max,
 }: TextInputProps) => {
   const styles = {
-    label: "text-sm font-medium text-gray-700",
+    label: "text-200 font-medium text-gray-700",
     input: clsx(
       "px-3.5 py-1 text-300 text-gray-1000",
       defaultStyles.border(hasError),

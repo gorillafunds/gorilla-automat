@@ -22,3 +22,8 @@ Provides pure TS files and a styles.min.css for all of the UI components of Auto
 - [React](https://reactjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Storybook](https://storybook.js.org/)
+
+## Env Vars
+
+MINTBASE_API_KEY for mintbase authentication
+GORILLA_API_URL example: https://api.gorillashops.io

@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { AutomatApp } from "../components"
+import { AutomatApp } from "@gorilla-automat/ui"
 import { GorillaAutomat } from "@gorilla-automat/domain"
 
 export default function Home() {

@@ -1,6 +1,7 @@
 @import "./fonts/inter/inter.css";
 @import "./fonts/cambon/cambon.css";
 @import "../components/SequenceMap/sequence-map.css";
+@import "./app-background.css";
 
 @tailwind base;
 @tailwind components;

@@ -8,7 +8,7 @@ const customFontSizes = require("@gorilla-automat/designtokens/fontSize")
 // TODO: import fonts from designtokens
 module.exports = {
   relative: true,
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.tsx"],
   theme: {
     boxShadow: {
       ...defaultTheme.boxShadow,

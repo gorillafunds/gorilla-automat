@@ -29,13 +29,13 @@ export const Select = ({
   // Having it all in one place...
   const styles = {
     button: clsx(
-      "relative h-10 w-full cursor-default bg-white py-2 pl-3 pr-10 text-left sm:text-sm",
+      "relative h-10 w-full cursor-default bg-white py-2 pl-3 pr-10 text-left sm:text-200",
       defaultStyles.border(hasError),
       defaultStyles.focus(),
     ),
     optionsList: (open: boolean) =>
       clsx(
-        "absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base sm:text-sm",
+        "absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base sm:text-200",
         open && "border-purple-600",
         defaultStyles.border(),
       ),

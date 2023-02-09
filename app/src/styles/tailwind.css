@@ -1,5 +1,0 @@
-@import "app-background.css";
-
-/* TODO: Remove duplications with customer-ui css (imported in _app.tsx) */
-@tailwind components;
-@tailwind utilities;

@@ -8,10 +8,13 @@
   ],
   "dependencies": {
     "@gorilla-automat/designtokens": "workspace:^0.0.0",
+    "@gorilla-automat/domain": "workspace:^0.0.0",
     "@headlessui/react": "^1.7.0",
     "@reach/combobox": "0.17.0",
+    "@xstate/react": "^3.0.2",
     "clsx": "^1.2.1",
-    "lucide-react": "^0.98.0"
+    "lucide-react": "^0.98.0",
+    "xstate": "^4.35.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.4.22",
@@ -21,6 +24,7 @@
     "@tailwindcss/typography": "^0.5.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "dotenv": "^16.0.3",
     "eslint": "8.11.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.5.0",

@@ -11,6 +11,7 @@ module.exports = withTM({
   reactStrictMode: true,
   env: {
     GORILLA_API_URL: process.env.GORILLA_API_URL,
+    MINTBASE_API_KEY: process.env.MINTBASE_API_KEY,
   },
   images: {
     domains: ["cdn.sanity.io", "arweave.net"],
