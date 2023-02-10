@@ -1,5 +1,5 @@
 import express from "express"
-import { fetchStores } from "./services"
+import { fetchStores, checkShopMinter } from "./services"
 import dotenv from "dotenv"
 import cors from "cors"
 import path from "path"
@@ -18,6 +18,15 @@ app.get("/get-contract-stores/:contractId", async (req, res) => {
   const stores = await fetchStores(contractId)
 
   res.json(stores)
+})
+
+app.get("/has-gorilla-minter/:contractId", async (req, res) => {
+  const { contractId } = req.params
+  const hasGorillaMinter = await checkShopMinter(contractId)
+
+  res.json({
+    hasGorillaMinter,
+  })
 })
 
 app.listen(PORT, () => {
