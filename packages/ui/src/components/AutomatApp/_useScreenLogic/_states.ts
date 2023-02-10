@@ -13,7 +13,6 @@ export const states = {
     on: {
       NEXT: {
         target: "shopPermission",
-        actions: actions.finishSelectShop,
       },
     },
   },
