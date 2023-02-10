@@ -7,6 +7,7 @@ export interface IGorillaAutomat {
   disconnectWallet: () => void
   walletConnected: () => boolean
   getShops: () => Promise<any>
+  grantMintPermission: Function
   handleZip: Function
 }
 

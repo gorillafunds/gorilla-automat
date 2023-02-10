@@ -1,6 +1,7 @@
 import { Wallet, Chain, Network } from "mintbase"
 import { IGorillaAutomat } from "./types.d"
 import { getOwnedShops } from "../../services"
+import { getMinter } from "../../helper"
 import { unpackZip, extractFileArrayJson } from "../../services"
 
 export class GorillaAutomat implements IGorillaAutomat {
@@ -38,6 +39,11 @@ export class GorillaAutomat implements IGorillaAutomat {
     const shops = await getOwnedShops(accountId)
 
     return shops
+  }
+
+  public grantMintPermission = async (shopId: string) => {
+    const minter = getMinter(shopId)
+    this.wallet.grantMinter(minter, shopId)
   }
 
   public handleZip = async (zipFile: File) => {

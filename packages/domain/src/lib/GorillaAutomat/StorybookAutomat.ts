@@ -43,6 +43,10 @@ export class StorybookAutomat implements IGorillaAutomat {
     ]
   }
 
+  public grantMintPermission = () => {
+    alert("Granting permission")
+  }
+
   public handleZip = () => {
     alert("Handle zip")
   }
