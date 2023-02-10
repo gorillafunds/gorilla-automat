@@ -13,5 +13,7 @@ describe("unpackZip", () => {
 
     expect(resultArray.length).toBe(3)
     expect(resultArray[0].type).toBe("image/svg+xml")
+    expect(resultArray[1].type).toBe("image/svg+xml")
+    expect(resultArray[2].type).toBe("text/json")
   })
 })
