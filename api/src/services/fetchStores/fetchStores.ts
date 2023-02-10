@@ -1,11 +1,13 @@
 import gql from "graphql-tag"
 import { print } from "graphql"
 import axios, { AxiosRequestConfig } from "axios"
+import { getApiUrl } from "../../helper"
 
 export const fetchStores = async (contractId: string) => {
+  const apiUrl = getApiUrl(contractId)
   const options: AxiosRequestConfig = {
     method: "post",
-    url: "https://mintbase-testnet.hasura.app/v1/graphql/",
+    url: apiUrl,
     headers: {
       Authorization: `Bearer ${process.env.MINTBASE_API_KEY}`,
       "Content-Type": "application/json",
