@@ -43,6 +43,10 @@ export class StorybookAutomat implements IGorillaAutomat {
     ]
   }
 
+  public checkShopPermission = () => {
+    return true
+  }
+
   public grantMintPermission = () => {
     alert("Granting permission")
   }
