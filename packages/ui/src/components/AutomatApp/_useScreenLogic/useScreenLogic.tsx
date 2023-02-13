@@ -32,6 +32,8 @@ export const useScreenLogic = () => {
 }
 
 const machineInitializer = () => {
+  if (typeof window === "undefined") return automatMachine()
+
   const initialScreenStorage = window.sessionStorage.getItem(SCREEN_STORAGE)
 
   if (!initialScreenStorage) return automatMachine()

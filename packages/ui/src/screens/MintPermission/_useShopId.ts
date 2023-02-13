@@ -1,6 +1,8 @@
 import { useState } from "react"
 
 const initializeShopId = () => {
+  if (typeof window === undefined) return
+
   const shopStorage = window.sessionStorage.getItem("gorillaAutomatShop")
 
   if (!shopStorage) throw new Error("no shop has been set")
