@@ -12,7 +12,8 @@ export type SetupProps = Screen
 
 // TODO: Remove divs when input and textarea are more styleable
 export const Setup = ({ actions }: SetupProps) => {
-  const [fields, handleChange, isValid] = useSetupFields()
+  const [fields, handleChange, isValid, handleProceed] = useSetupFields(actions)
+
   return (
     <WizardStep>
       <WizardStepHeader>Setup Your Batch</WizardStepHeader>
@@ -68,7 +69,7 @@ export const Setup = ({ actions }: SetupProps) => {
         buttons={[
           <Button
             disabled={!isValid}
-            onClick={actions.next}
+            onClick={handleProceed}
             label="Proceed"
             key="next"
           />,

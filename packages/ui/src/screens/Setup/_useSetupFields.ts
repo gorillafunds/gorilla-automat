@@ -1,4 +1,6 @@
-import { useReducer, useEffect, useState, ChangeEvent } from "react"
+import { useReducer, useState, ChangeEvent } from "react"
+import { Screen } from "../types"
+import debounce from "debounce"
 
 const defaultFields = {
   price: 0,
@@ -8,7 +10,7 @@ const defaultFields = {
 }
 
 // TODO Add correct typing for useReducer
-export const useSetupFields = () => {
+export const useSetupFields = (actions: Screen["actions"]) => {
   const [isValid, setIsValid] = useState(false)
   const [fields, updateFields] = useReducer((prev: any, next: any) => {
     const newValue = {
@@ -30,22 +32,26 @@ export const useSetupFields = () => {
     updateFields({
       [name]: value,
     })
+
+    debounce(validate, 500)
   }
 
-  // Update validation status  if a field changes
-  // Save to sessionStorage if all fields are valid
-  useEffect(() => {
+  const validate = () => {
     const fieldValues = Object.values(fields)
     const fieldsAreValid = fieldValues.every((value) => value !== "")
     setIsValid(fieldsAreValid)
+  }
 
-    if (fieldsAreValid) {
+  // Save to sessionStorage if all fields are valid
+  const handleProceed = () => {
+    if (isValid) {
       window?.sessionStorage.setItem(
         "gorillaAutomatSetup",
         JSON.stringify(fields),
       )
+      actions.next()
     }
-  }, [fields])
+  }
 
-  return [fields, handleChange, isValid] as const
+  return [fields, handleChange, isValid, handleProceed] as const
 }
