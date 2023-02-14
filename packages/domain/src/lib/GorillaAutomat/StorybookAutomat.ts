@@ -1,4 +1,6 @@
 import { IGorillaAutomat } from "./types.d"
+// @ts-ignore
+import wait from "wait"
 
 export class StorybookAutomat implements IGorillaAutomat {
   protected isConnected: boolean
@@ -54,5 +56,10 @@ export class StorybookAutomat implements IGorillaAutomat {
 
   public handleZip = () => {
     alert("Handle zip")
+  }
+
+  public uploadToArweave = async () => {
+    await wait(2500)
+    return true
   }
 }

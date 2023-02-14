@@ -10,6 +10,7 @@ export interface IGorillaAutomat {
   checkShopPermission: Function
   grantMintPermission: Function
   handleZip: Function
+  uploadToArweave: Function
 }
 
 export type AutomatConstructor = new () => IGorillaAutomat

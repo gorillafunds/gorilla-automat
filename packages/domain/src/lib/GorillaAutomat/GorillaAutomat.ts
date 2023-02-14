@@ -1,13 +1,14 @@
-import { Wallet, Chain, Network } from "mintbase"
+import { Wallet, Chain, Network, MetadataField } from "mintbase"
 import { IGorillaAutomat } from "./types.d"
 import { getOwnedShops, checkShopPermission } from "../../services"
-import { getMinter } from "../../helper"
+import { getMinter, buildMetadataArray } from "../../helper"
 import { unpackZip, extractFileArrayJson } from "../../services"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet!: Wallet
   public files!: File[]
   public metaData: any
+  private mintConfig: any
 
   public initializeWallet = async () => {
     const { data } = await new Wallet().init({
@@ -59,4 +60,57 @@ export class GorillaAutomat implements IGorillaAutomat {
     this.files = array
     this.metaData = json
   }
+
+  public uploadToArweave = async (config: ArweaveConfig, storeId: string) => {
+    if (!this.wallet.minter) {
+      throw new Error("Wallet is not connected")
+    }
+    const account = this.wallet.activeAccount
+    const minter = getMinter(storeId)
+
+    // Build metadata array from files
+    const metaDataArray = buildMetadataArray(this.files, config, this.metaData)
+
+    try {
+      // Configure minter
+      for (const metaDataItem of metaDataArray) {
+        this.wallet.minter.setMetadata(metaDataItem)
+      }
+
+      // Actual upload
+      this.mintConfig = await Promise.all(
+        this.files.map(async (file) => {
+          await this.wallet.minter?.uploadField(MetadataField.Media, file)
+          const id = await this.wallet.minter?.getMetadataId()
+          const signature = await this.wallet.signMessage("GorillaAutomat")
+
+          return {
+            signature,
+            account,
+            storeId,
+            minter,
+            amount: config.amount,
+            ref: "",
+            extra: [],
+            split_percentages: {
+              [`${account}`]: 10000,
+              [`${minter}`]: 0,
+            },
+            forever_royalties: { [`${minter}`]: 10000 },
+            royalty_percentage: 100,
+          }
+        }),
+      )
+    } catch (_) {
+      return false
+    }
+
+    return true
+  }
+}
+
+type ArweaveConfig = {
+  amount: number
+  title: string
+  description: string
 }
