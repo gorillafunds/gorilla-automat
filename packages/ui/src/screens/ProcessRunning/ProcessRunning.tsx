@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ProgressBar } from "../../components"
 import { WizardStep, WizardStepContent } from "../../patterns"
 import { Screen } from "../types"
@@ -6,8 +6,19 @@ import { useTimeout } from "../../helper"
 
 export type ProcessRunningProps = Screen
 
-export const ProcessRunning = ({ actions }: ProcessRunningProps) => {
+export const ProcessRunning = ({ actions, automat }: ProcessRunningProps) => {
   const [progress, setProgress] = useState(5)
+
+  // Start process on the first render
+  useEffect(() => {
+    const mintAndList = async () => {
+      const result = automat.mintAndList()
+
+      if (result) actions.next()
+      actions.error()
+    }
+    mintAndList()
+  }, [])
 
   // Just a dummy
   useTimeout(() => setProgress(100), 6000)

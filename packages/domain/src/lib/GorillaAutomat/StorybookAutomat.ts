@@ -62,4 +62,9 @@ export class StorybookAutomat implements IGorillaAutomat {
     await wait(2500)
     return true
   }
+
+  public mintAndList = async () => {
+    await wait(1000)
+    return true
+  }
 }

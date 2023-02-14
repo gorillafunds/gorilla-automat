@@ -1,5 +1,6 @@
 import { Wallet, Chain, Network, MetadataField } from "mintbase"
 import { IGorillaAutomat } from "./types.d"
+import axios from "axios"
 import { getOwnedShops, checkShopPermission } from "../../services"
 import { getMinter, buildMetadataArray } from "../../helper"
 import { unpackZip, extractFileArrayJson } from "../../services"
@@ -106,6 +107,20 @@ export class GorillaAutomat implements IGorillaAutomat {
     }
 
     return true
+  }
+
+  public mintAndList = async () => {
+    // TODO: useEnvVar
+    const API_URL =
+      "https://2usno4ct5l.execute-api.eu-central-1.amazonaws.com/prod"
+    const API_ENDPOINT = `${API_URL}/start-automat`
+
+    try {
+      const result = await axios.post(API_ENDPOINT, this.mintConfig)
+      if (result.status === 200) return true
+    } catch (_) {
+      return false
+    }
   }
 }
 

@@ -11,6 +11,7 @@ export interface IGorillaAutomat {
   grantMintPermission: Function
   handleZip: Function
   uploadToArweave: Function
+  mintAndList: Function
 }
 
 export type AutomatConstructor = new () => IGorillaAutomat
