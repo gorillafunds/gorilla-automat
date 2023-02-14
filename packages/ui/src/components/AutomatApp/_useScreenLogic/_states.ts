@@ -55,7 +55,7 @@ export const states = {
     on: {
       NEXT: "mintStart",
       PREV: {
-        target: "setup",
+        target: "selectShop",
         actions: actions.goBackToSetup,
       },
     },

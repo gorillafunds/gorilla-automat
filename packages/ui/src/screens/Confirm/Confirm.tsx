@@ -1,3 +1,4 @@
+import { ChangeEvent, useState } from "react"
 import { Checkbox, Message, Button } from "../../components"
 import {
   WizardStep,
@@ -12,6 +13,12 @@ export type ConfirmProps = Screen
 
 // TODO: Update Message as soon as it's more flexible
 export const Confirm = ({ actions }: ConfirmProps) => {
+  const [hasAgreed, setHasAgreed] = useState(false)
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setHasAgreed(e.target.checked)
+  }
+
   return (
     <WizardStep>
       <WizardStepHeader>Confirm Mint &amp; List Settings</WizardStepHeader>
@@ -21,6 +28,7 @@ export const Confirm = ({ actions }: ConfirmProps) => {
           label="I agree to Gorilla Shops’ terms of services and understand that these settings are permanent for each NFT in my batch as soon as the minting process is done."
           name="confirm"
           className="mt-6 text-200"
+          onChange={handleChange}
         />
         <Message variant="important" className="mt-6">
           In the following steps you will be redirected to NEAR to assign
@@ -43,6 +51,7 @@ export const Confirm = ({ actions }: ConfirmProps) => {
             onClick={actions.next}
             label="Confirm &amp; Proceed"
             key="next"
+            disabled={!hasAgreed}
           />,
         ]}
       />

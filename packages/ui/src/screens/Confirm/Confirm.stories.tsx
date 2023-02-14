@@ -1,7 +1,7 @@
 import { Story, Meta } from "@storybook/react"
 import { Confirm, ConfirmProps } from "./index"
 import { StorybookAutomat } from "@gorilla-automat/domain"
-import { withMaxWidth } from "../../decorators"
+import { withMaxWidth, withMockStorage } from "../../decorators"
 import { mockActions } from "../storybookMocks"
 
 export default {
@@ -11,7 +11,7 @@ export default {
     actions: mockActions,
     automat: new StorybookAutomat(),
   },
-  decorators: [withMaxWidth],
+  decorators: [withMaxWidth, withMockStorage],
 } as Meta<ConfirmProps>
 
 const Template: Story<ConfirmProps> = (args) => <Confirm {...args} />
