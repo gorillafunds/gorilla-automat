@@ -1,17 +1,21 @@
 import { Wallet, Chain, Network, MetadataField } from "mintbase"
+import axios from "axios"
 import { IGorillaAutomat } from "./types.d"
-import { getOwnedShops, checkShopPermission } from "../../services"
+import {
+  getOwnedShops,
+  checkShopPermission,
+  unpackZip,
+  extractFileArrayJson,
+  pollExecution,
+} from "../../services"
 import { getMinter, buildMetadataArray } from "../../helper"
-import { unpackZip, extractFileArrayJson } from "../../services"
-import { pollExecution } from "../../services/automatWatcher"
-import { automatService } from "../../services/automatService.ts"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet!: Wallet
   public files!: File[]
   public metaData: any
   private mintConfig: any
-  private listConfig: any
+  private listConfig!: any[]
 
   public initializeWallet = async () => {
     const { data } = await new Wallet().init({
@@ -118,18 +122,18 @@ export class GorillaAutomat implements IGorillaAutomat {
     const minter = getMinter(storeId)
     const signature = await this.wallet.signMessage("hello")
 
-    try {
-      var result = await automatService({
-        function: "mint",
-        array: this.mintConfig,
-      })
-      if (result.success) console.log("success")
-    } catch (_) {
-      return false
-    }
+    // Minting process
+    const mintResponse = await axios.post(API_ENDPOINT, {
+      function: "mint",
+      array: this.mintConfig,
+    })
+    const mintResult = mintResponse.data
+    if (!mintResult.executionArn) return false
 
-    const execution = await pollExecution(result.executionArn)
+    // Poll Minting process
+    const execution = await pollExecution(mintResult.executionArn)
 
+    // Build list config
     let receiptResultArray: any[] = []
 
     for (let index = 0; index < execution.execution_results.length; index++) {
@@ -152,8 +156,6 @@ export class GorillaAutomat implements IGorillaAutomat {
       return tokens
     })
 
-    this.listConfig = []
-
     for (let index = 0; index < tokens.length; index++) {
       let listConfig = {
         signature,
@@ -165,11 +167,16 @@ export class GorillaAutomat implements IGorillaAutomat {
       }
       this.listConfig.push(listConfig)
     }
-    const listResult = await automatService({
+
+    // Start Listing stateMachine
+    const listResponse = await axios.post(API_ENDPOINT, {
       array: this.listConfig,
       function: "list",
     })
+    const listResult = listResponse.data
+    if (!listResult.executionArn) return false
 
+    // Poll Listing
     const listExecution = await pollExecution(listResult.executionArn)
     console.log("listExecution", listExecution)
 
@@ -182,3 +189,6 @@ type ArweaveConfig = {
   title: string
   description: string
 }
+
+const API_URL = "https://2usno4ct5l.execute-api.eu-central-1.amazonaws.com/prod"
+const API_ENDPOINT = `${API_URL}/start-automat`
