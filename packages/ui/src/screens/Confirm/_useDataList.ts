@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export const useDataList = () => {
-  const [setupData] = useState(initilizeDatList)
+  const [setupData] = useState(initilizeDataList)
 
   const dataList = [
     {
@@ -29,7 +29,7 @@ export const useDataList = () => {
   return dataList
 }
 
-const initilizeDatList = () => {
+const initilizeDataList = () => {
   if (typeof window === "undefined") return
 
   const setupStorage = window?.sessionStorage.getItem("gorillaAutomatSetup")
