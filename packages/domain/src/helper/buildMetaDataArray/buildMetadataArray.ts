@@ -4,9 +4,9 @@ export const buildMetadataArray = (
   metaDataJson: any,
 ) => {
   const metaDataArray = fileArray.map((file) => {
-    const { attributes } = metaDataJson.find(
-      (current: any) => current.name === file.name,
-    )
+    const { attributes } = metaDataJson.find((current: any) => {
+      return file.name.includes(current.name)
+    })
 
     return {
       ...config,
