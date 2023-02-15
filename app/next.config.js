@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const withTM = require("next-transpile-modules")([
   "@gorilla-automat/ui",
-  "@gorilla-automat/packages/domain",
-]);
-const dotenv = require("dotenv");
-const path = require("path");
+  "@gorilla-automat/domain",
+])
+const dotenv = require("dotenv")
+const path = require("path")
 
 // load global .env
-const dotenvPath = path.join(__dirname, "..", ".env");
-dotenv.config({ path: dotenvPath });
+const dotenvPath = path.join(__dirname, "..", ".env")
+dotenv.config({ path: dotenvPath })
 
 module.exports = withTM({
   reactStrictMode: true,
@@ -23,4 +23,4 @@ module.exports = withTM({
     domains: ["cdn.sanity.io", "arweave.net"],
     dangerouslyAllowSVG: true,
   },
-});
+})
