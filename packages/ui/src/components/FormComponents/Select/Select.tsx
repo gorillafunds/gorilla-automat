@@ -45,7 +45,8 @@ export const Select = ({
         active ? "text-purple-600" : "text-gray-900",
       ),
   }
-  return (
+  /* TODO: Add error boundry to handle when the selected wallet has no shop */
+  return selected ? (
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
         <>
@@ -86,5 +87,5 @@ export const Select = ({
         </>
       )}
     </Listbox>
-  )
+  ) : null
 }
