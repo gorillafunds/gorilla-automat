@@ -15,7 +15,7 @@ export class GorillaAutomat implements IGorillaAutomat {
   public files!: File[]
   public metaData: any
   private mintConfig: any
-  private listConfig!: any[]
+  private listConfig: any[] = []
 
   public initializeWallet = async () => {
     const { data } = await new Wallet().init({
