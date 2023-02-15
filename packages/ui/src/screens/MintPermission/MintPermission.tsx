@@ -14,13 +14,13 @@ export type MintPermissionProps = Screen
 
 export const MintPermission = ({ actions, automat }: MintPermissionProps) => {
   const shopId = useShopId()
-  usePermission(actions, automat, shopId)
+  const permissionChecked = usePermission(actions, automat, shopId)
 
   const handleProceed = () => {
     automat.grantMintPermission(shopId)
   }
 
-  return (
+  return permissionChecked ? (
     <WizardStep>
       <WizardStepHeader>Mint Permission</WizardStepHeader>
       <WizardStepContent>
@@ -38,5 +38,5 @@ export const MintPermission = ({ actions, automat }: MintPermissionProps) => {
         ]}
       />
     </WizardStep>
-  )
+  ) : null
 }

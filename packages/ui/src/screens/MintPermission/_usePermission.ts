@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Screen } from "../types"
 
 /** If the shop has already all  permissions, the app goes to the next step automatically */
@@ -9,6 +9,7 @@ export const usePermission = (
 ) => {
   // NextJs renders the whole app twice, this avoids problems caused by that
   const executedRef = useRef<boolean>()
+  const [checked, setChecked] = useState(false)
 
   useEffect(() => {
     const checkPermission = async () => {
@@ -18,8 +19,12 @@ export const usePermission = (
       if (hasPermission && !executedRef.current) {
         executedRef.current = true
         actions.next()
+      } else {
+        setChecked(true)
       }
     }
     checkPermission()
   }, [actions, automat])
+
+  return checked
 }
