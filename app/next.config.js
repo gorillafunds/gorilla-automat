@@ -15,6 +15,9 @@ module.exports = withTM({
   env: {
     GORILLA_API_URL: process.env.GORILLA_API_URL,
     MINTBASE_API_KEY: process.env.MINTBASE_API_KEY,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+    AWS_REGION: process.env.AWS_REGION,
   },
   images: {
     domains: ["cdn.sanity.io", "arweave.net"],

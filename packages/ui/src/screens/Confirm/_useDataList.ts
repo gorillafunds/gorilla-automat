@@ -39,7 +39,7 @@ const initilizeDataList = () => {
   if (!storeStorage) throw new Error("Store data is not available")
 
   const setupData = JSON.parse(setupStorage)
-  const storeTitle = JSON.parse(storeStorage).title
+  const storeTitle = JSON.parse(storeStorage).label
 
   return {
     storeTitle,
@@ -49,5 +49,3 @@ const initilizeDataList = () => {
     price: setupData.price || 0,
   }
 }
-
-type dataList = {}
