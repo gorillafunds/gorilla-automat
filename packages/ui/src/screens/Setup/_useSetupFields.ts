@@ -1,6 +1,5 @@
 import { useReducer, useState, ChangeEvent } from "react"
 import { Screen } from "../types"
-import debounce from "debounce"
 
 const defaultFields = {
   price: 0,
@@ -33,7 +32,7 @@ export const useSetupFields = (actions: Screen["actions"]) => {
       [name]: value,
     })
 
-    debounce(validate, 500)
+    validate()
   }
 
   const validate = () => {
