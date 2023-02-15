@@ -136,39 +136,40 @@ export class GorillaAutomat implements IGorillaAutomat {
     const execution = await pollExecution(mintResult.executionArn)
 
     // Build list config
-    let receiptResultArray: any[] = []
+    const receipts = execution.execution_results.reduce(
+      (prev: any, execResult: any) => {
+        let body = execResult.Payload.body
+        let parsedBody = JSON.parse(body)
 
-    for (let index = 0; index < execution.execution_results.length; index++) {
-      let string = execution.execution_results[index].Payload.body
-      console.log("execution", execution)
-      let parsed_body = JSON.parse(string)
-      console.log("parsed_body", parsed_body)
-      const receiptsArray = parsed_body.logs.map((log: string) => {
-        const receiptResult = log.split("N:")
-        return JSON.parse(receiptResult[1])
-      })
-      receiptResultArray = receiptResultArray.concat(receiptsArray)
-    }
-    console.log("receiptResultArray:", receiptResultArray)
-    const tokens: any[] = []
-    const tokenArray = receiptResultArray.map((result, index) => {
-      for (const token of result.data[0].token_ids) {
-        tokens.push({ id: token, price: "1.0" })
-      }
-      return tokens
-    })
+        const bodyReceipts = parsedBody.logs.map((log: string) => {
+          const [, receipt] = log.split("N:")
+          return JSON.parse(receipt)
+        })
+        return prev.concat(bodyReceipts)
+      },
+      [],
+    )
 
-    for (let index = 0; index < tokens.length; index++) {
-      let listConfig = {
+    const tokens = receipts.reduce((prev: any, receipt: any) => {
+      const tokenIds = receipt.data[0].token_ids
+      const newTokens = tokenIds.map((tokenID: string) => ({
+        id: tokenID,
+        price: "1.0",
+      }))
+      return prev.concat(newTokens)
+    }, [])
+
+    tokens.forEach((token: any) => {
+      const listConfig = {
         signature,
         account,
         storeId: storeId,
         minter,
-        tokenId: tokens[index].id,
-        price: tokens[index].price,
+        tokenId: token.id,
+        price: token.price,
       }
       this.listConfig.push(listConfig)
-    }
+    })
 
     // Start Listing stateMachine
     const listResponse = await axios.post(API_ENDPOINT, {

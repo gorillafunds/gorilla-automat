@@ -33,7 +33,7 @@ export const ProcessRunning = ({ actions, automat }: ProcessRunningProps) => {
         <span>{progress}% minted</span> */}
         <GorillaLogo className="w-16 h-16" />
         <p>We are minting and Listing your NFTs...</p>
-        <p>This could take several time.</p>
+        <p>This may take some time.</p>
       </WizardStepContent>
     </WizardStep>
   )
