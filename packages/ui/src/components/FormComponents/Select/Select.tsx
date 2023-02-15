@@ -56,7 +56,7 @@ export const Select = ({
           )}
           <div className="relative mt-1">
             <Listbox.Button className={styles.button}>
-              <span className="block truncate">{selected.label}</span>
+              <span className="block truncate">{selected?.label}</span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronsUpDown className="ui-icon-s" />
               </span>
