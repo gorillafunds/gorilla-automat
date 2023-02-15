@@ -19,11 +19,8 @@ export const withMockStorage = (StoryFn: Function) => {
       value: "mockShop",
     })
 
-    if (!window.sessionStorage.getItem("gorillaAutomatSetup"))
-      window.sessionStorage.setItem("gorillaAutomatSetup", mockStorageObj)
-
-    if (!window.sessionStorage.getItem("gorillaAutomatShop"))
-      window.sessionStorage.setItem("gorillaAutomatShop", mockShopObj)
+    window.sessionStorage.setItem("gorillaAutomatSetup", mockStorageObj)
+    window.sessionStorage.setItem("gorillaAutomatShop", mockShopObj)
 
     setHasFakeStorage(true)
   }, [])
