@@ -7,14 +7,17 @@
   "license": "MIT",
   "private": "true",
   "dependencies": {
+    "aws-sdk": "^2.1315.0",
     "axios": "^1.3.2",
     "jszip": "^3.10.1",
-    "mintbase": "^0.8.5-rc.2"
+    "mintbase": "^0.8.5-rc.2",
+    "stepfunctions": "link:aws-sdk/clients/stepfunctions"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.13.0",
+    "@types/react": "^18.0.28",
     "dotenv": "^16.0.3",
     "happy-dom": "^8.2.6",
     "typescript": "^4.9.5",
