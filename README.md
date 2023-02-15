@@ -2,6 +2,16 @@
 
 PNPM workspace for all gorilla-automat packages.
 
+## Run Locally
+
+First, run the development server:
+
+### From packages/designtokens directory
+
+```bash
+  pnpm dev
+```
+
 ## Structure
 
 The Workspace is split into packages and the app folder
