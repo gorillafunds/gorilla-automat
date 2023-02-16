@@ -95,6 +95,8 @@ export class GorillaAutomat implements IGorillaAutomat {
             account,
             storeId,
             minter,
+            title: config.title,
+            description: config.description,
             amount: Number(config.amount),
             ref: id?.data,
             extra: [],
