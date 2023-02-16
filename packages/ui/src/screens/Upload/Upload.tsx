@@ -32,7 +32,7 @@ export const Upload = ({ actions, automat }: UploadProps) => {
             target="_blank"
             rel="noreferrer"
             className="underline font-medium underline-offset-4"
-            href="https://gorillashops.io"
+            href="https://gorilla-assets.s3.eu-central-1.amazonaws.com/automat/automat-example.zip"
           >
             sample ZIP file
           </a>
