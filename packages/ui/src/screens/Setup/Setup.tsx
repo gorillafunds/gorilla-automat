@@ -57,13 +57,11 @@ export const Setup = ({ actions }: SetupProps) => {
             onChange={handleChange}
           />
         </div>
-        {/* TODO: Add correct text-color from */}
-        {/* TODO: Add {{index}} functionallity */}
-        {/* <Message className="col-span-2">
+        <Message className="col-span-2">
           Tipp You can use the variable{" "}
-          <span className="text-purple-300">{`{{ index }}`}</span> in both title
+          <span className="text-purple-500">{`{{index}}`}</span> in both title
           and description fields to add automated numbering.
-        </Message> */}
+        </Message>
       </WizardStepContent>
       <WizardStepFooter
         buttons={[

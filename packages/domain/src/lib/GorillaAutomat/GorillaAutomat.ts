@@ -92,11 +92,20 @@ export class GorillaAutomat implements IGorillaAutomat {
           const account = this.wallet.activeAccount?.accountId
           const signature = await this.wallet.signMessage("hello")
 
+          // Replace title and description {{index}} with the current index+1
+          const title = config.title.replace("{{index}}", `${index + 1}`)
+          const description = config.description.replace(
+            "{{index}}",
+            `${index + 1}`,
+          )
+
           return {
             signature,
             account,
             storeId,
             minter,
+            title,
+            description,
             amount: Number(config.amount),
             ref: id?.data,
             extra: [],
