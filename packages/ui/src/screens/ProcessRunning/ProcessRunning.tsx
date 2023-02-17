@@ -3,19 +3,19 @@ import { useEffect, useRef } from "react"
 import { GorillaLogo } from "../../components"
 import { WizardStep, WizardStepContent } from "../../patterns"
 import { Screen } from "../types"
-import { useStoreId } from "./_useStoreId"
+import { useShopStorage } from "../../hooks"
 
 export type ProcessRunningProps = Screen
 
 export const ProcessRunning = ({ actions, automat }: ProcessRunningProps) => {
   // TODO: Try out after switching away from NextJs
   const actionRef = useRef<boolean>(false)
-  const storeId = useStoreId()
+  const { shopId } = useShopStorage()
 
   // Start process on the first render
   useEffect(() => {
     const mintAndList = async () => {
-      const result = await automat.mintAndList(storeId)
+      const result = await automat.mintAndList(shopId)
 
       if (!actionRef.current) {
         const action = result ? actions.next : actions.error

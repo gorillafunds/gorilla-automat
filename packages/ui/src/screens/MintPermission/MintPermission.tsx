@@ -7,13 +7,13 @@ import {
   WizardStepFooter,
   WizardStepContent,
 } from "../../patterns"
-import { useShopId } from "./_useShopId"
 import { usePermission } from "./_usePermission"
+import { useShopStorage } from "../../hooks"
 
 export type MintPermissionProps = Screen
 
 export const MintPermission = ({ actions, automat }: MintPermissionProps) => {
-  const shopId = useShopId()
+  const { shopId } = useShopStorage()
   const permissionChecked = usePermission(actions, automat, shopId)
 
   const handleProceed = () => {
