@@ -24,16 +24,16 @@ export const Uploading = ({ actions, automat }: Screen) => {
   }
 
   useEffect(() => {
+    if (actionRef.current) return
     const upload = async () => {
+      console.log("🚨 Start upload")
       const uploadSuccess = await automat.uploadToArweave(setupData, shopId)
-      if (!actionRef.current) {
-        const action = uploadSuccess ? actions.next : throwUploadError
-        actionRef.current = true
-        action()
-      }
+      const action = uploadSuccess ? actions.next : throwUploadError
+      action()
     }
 
     upload()
+    actionRef.current = true
   }, [])
 
   return (
