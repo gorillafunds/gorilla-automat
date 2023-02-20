@@ -14,8 +14,12 @@ export const states = {
       NEXT: {
         target: "shopPermission",
       },
+      ERROR: {
+        target: "selectShopError",
+      },
     },
   },
+  selectShopError: {},
   shopPermission: {
     on: {
       NEXT: {

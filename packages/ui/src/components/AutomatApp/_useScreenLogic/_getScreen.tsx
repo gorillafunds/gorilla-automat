@@ -6,8 +6,9 @@ export const getScreen = (currentState: AutomatState): ElementType => {
   const screenMap = {
     connect: Screens.Connect,
     selectShop: Screens.SelectShop,
-    setup: Screens.Setup,
+    selectShopError: Screens.SelectShopError,
     shopPermission: Screens.MintPermission,
+    setup: Screens.Setup,
     upload: Screens.Upload,
     uploadProcess: Screens.Uploading,
     uploadError: Screens.UploadError,
