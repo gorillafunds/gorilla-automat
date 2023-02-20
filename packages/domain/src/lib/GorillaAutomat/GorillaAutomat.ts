@@ -95,8 +95,6 @@ export class GorillaAutomat implements IGorillaAutomat {
             account,
             storeId,
             minter,
-            title: config.title,
-            description: config.description,
             amount: Number(config.amount),
             ref: id?.data,
             extra: [],
@@ -134,30 +132,35 @@ export class GorillaAutomat implements IGorillaAutomat {
 
     // Poll Minting process
     const execution = await pollExecution(mintResult.executionArn)
-
     // Build list config
     const receipts = execution.execution_results.reduce(
       (prev: any, execResult: any) => {
-        let body = execResult.Payload.body
+        let body = execResult.execution_results.Payload.body.Payload.body
         let parsedBody = JSON.parse(body)
-
-        const bodyReceipts = parsedBody.logs.map((log: string) => {
-          const [, receipt] = log.split("N:")
-          return JSON.parse(receipt)
+        console.log("parsedBody", parsedBody)
+        const bodyReceipts = parsedBody.map((item: any) => {
+          const receipt = item.data[0].token_ids
+          return receipt
         })
-        return prev.concat(bodyReceipts)
+        return prev.concat(...bodyReceipts)
       },
       [],
     )
 
-    const tokens = receipts.reduce((prev: any, receipt: any) => {
+    /*const tokens = receipts.reduce((prev: any, receipt: any) => {
       const tokenIds = receipt.data[0].token_ids
       const newTokens = tokenIds.map((tokenID: string) => ({
         id: tokenID,
         price: "1.0",
       }))
       return prev.concat(newTokens)
-    }, [])
+    }, [])*/
+
+    let tokens: any[] = []
+    tokens = receipts.map((tokenId: string) => ({
+      id: tokenId,
+      price: "1.0",
+    }))
 
     tokens.forEach((token: any) => {
       const listConfig = {
@@ -180,8 +183,7 @@ export class GorillaAutomat implements IGorillaAutomat {
     if (!listResult.executionArn) return false
 
     // Poll Listing
-    const listExecution = await pollExecution(listResult.executionArn)
-    console.log("listExecution", listExecution)
+    await pollExecution(listResult.executionArn)
 
     return true
   }
@@ -194,4 +196,4 @@ type ArweaveConfig = {
 }
 
 const API_URL = "https://2usno4ct5l.execute-api.eu-central-1.amazonaws.com/prod"
-const API_ENDPOINT = `${API_URL}/start-automat`
+const API_ENDPOINT = `${API_URL}/start-parent-automat`
