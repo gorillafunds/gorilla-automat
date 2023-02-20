@@ -78,21 +78,13 @@ export class GorillaAutomat implements IGorillaAutomat {
 
     try {
       // Configure minter
-      /*for (const metaDataItem of metaDataArray) {
+      for (const metaDataItem of metaDataArray) {
         this.wallet.minter.setMetadata(metaDataItem)
-      }*/
+      }
 
       // Actual upload
       this.mintConfig = await Promise.all(
-        this.files.map(async (file, index) => {
-          metaDataArray[index].title = metaDataArray[index].title.replace(
-            /{{index}}/g,
-            index.toString(),
-          )
-          metaDataArray[index].description = metaDataArray[
-            index
-          ].description.replace(/{{index}}/g, index.toString())
-          this.wallet?.minter?.setMetadata(metaDataArray[index])
+        this.files.map(async (file) => {
           await this.wallet.minter?.uploadField(MetadataField.Media, file)
           const id = await this.wallet.minter?.getMetadataId()
           const account = this.wallet.activeAccount?.accountId
@@ -140,7 +132,6 @@ export class GorillaAutomat implements IGorillaAutomat {
 
     // Poll Minting process
     const execution = await pollExecution(mintResult.executionArn)
-    console.log("execution:", execution)
     // Build list config
     const receipts = execution.execution_results.reduce(
       (prev: any, execResult: any) => {
@@ -155,8 +146,6 @@ export class GorillaAutomat implements IGorillaAutomat {
       },
       [],
     )
-
-    console.log("receipts", receipts)
 
     /*const tokens = receipts.reduce((prev: any, receipt: any) => {
       const tokenIds = receipt.data[0].token_ids
@@ -194,8 +183,7 @@ export class GorillaAutomat implements IGorillaAutomat {
     if (!listResult.executionArn) return false
 
     // Poll Listing
-    const listExecution = await pollExecution(listResult.executionArn)
-    console.log("listExecution", listExecution)
+    await pollExecution(listResult.executionArn)
 
     return true
   }
