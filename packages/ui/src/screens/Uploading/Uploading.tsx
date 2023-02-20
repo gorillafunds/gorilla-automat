@@ -2,18 +2,19 @@ import { useEffect, useRef } from "react"
 import { Spinner } from "../../components"
 import { WizardStep, WizardStepContent } from "../../patterns"
 import { Screen } from "../types"
-import { useUploadData } from "./_useUploadData"
+import { useShopStorage, useSetupStorage } from "../../hooks"
 
 export type UploadingProps = Screen
 
 export const Uploading = ({ actions, automat }: Screen) => {
   // TODO: Try out after switching away from NextJs
   const actionRef = useRef<boolean>(false)
-  const { setupData, storeId } = useUploadData()
+  const setupData = useSetupStorage()
+  const { shopId } = useShopStorage()
 
   useEffect(() => {
     const upload = async () => {
-      const uploadSuccess = await automat.uploadToArweave(setupData, storeId)
+      const uploadSuccess = await automat.uploadToArweave(setupData, shopId)
       if (!actionRef.current) {
         const action = uploadSuccess ? actions.next : actions.error
         actionRef.current = true

@@ -1,51 +1,31 @@
-import { useState } from "react"
+import { useSetupStorage, useShopStorage } from "../../hooks"
 
 export const useDataList = () => {
-  const [setupData] = useState(initilizeDataList)
+  const setupData = useSetupStorage()
+  const shopData = useShopStorage()
 
   const dataList = [
     {
       title: "Shop",
-      value: setupData?.storeTitle,
+      value: shopData.shopTitle,
     },
     {
       title: "Price",
-      value: setupData?.price,
+      value: setupData.price,
     },
     {
       title: "Copies",
-      value: setupData?.copies,
+      value: setupData.amount,
     },
     {
       title: "Title",
-      value: setupData?.title,
+      value: setupData.title,
     },
     {
       title: "Description",
-      value: setupData?.description,
+      value: setupData.description,
     },
   ]
 
   return dataList
-}
-
-const initilizeDataList = () => {
-  if (typeof window === "undefined") return
-
-  const setupStorage = window?.sessionStorage.getItem("gorillaAutomatSetup")
-  if (!setupStorage) throw new Error("Setup data is not available")
-
-  const storeStorage = window?.sessionStorage.getItem("gorillaAutomatShop")
-  if (!storeStorage) throw new Error("Store data is not available")
-
-  const setupData = JSON.parse(setupStorage)
-  const storeTitle = JSON.parse(storeStorage).label
-
-  return {
-    storeTitle,
-    title: setupData.title || "",
-    description: setupData.description || "",
-    copies: setupData.amount || 0,
-    price: setupData.price || 0,
-  }
 }
