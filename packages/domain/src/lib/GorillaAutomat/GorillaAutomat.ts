@@ -114,7 +114,7 @@ export class GorillaAutomat implements IGorillaAutomat {
     return true
   }
 
-  public mintAndList = async (storeId: string) => {
+  public mintAndList = async (storeId: string, price: string | number) => {
     if (!this.wallet.minter) {
       throw new Error("Wallet is not connected")
     }
@@ -147,19 +147,10 @@ export class GorillaAutomat implements IGorillaAutomat {
       [],
     )
 
-    /*const tokens = receipts.reduce((prev: any, receipt: any) => {
-      const tokenIds = receipt.data[0].token_ids
-      const newTokens = tokenIds.map((tokenID: string) => ({
-        id: tokenID,
-        price: "1.0",
-      }))
-      return prev.concat(newTokens)
-    }, [])*/
-
     let tokens: any[] = []
     tokens = receipts.map((tokenId: string) => ({
       id: tokenId,
-      price: "1.0",
+      price,
     }))
 
     tokens.forEach((token: any) => {
