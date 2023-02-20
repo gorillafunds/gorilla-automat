@@ -11,7 +11,10 @@ import { useShops } from "./_useShops"
 export type SelectShopProps = Screen
 
 export const SelectShop = ({ actions, automat }: SelectShopProps) => {
-  const [shops, selectedShop, setSelectedShop] = useShops(automat.getShops)
+  const [shops, selectedShop, setSelectedShop] = useShops(
+    automat.getShops,
+    actions,
+  )
 
   return (
     <WizardStep className="min-w-full">
