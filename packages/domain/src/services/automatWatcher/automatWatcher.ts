@@ -23,7 +23,7 @@ export async function pollExecution(executionArn: string) {
     execution.status !== "FAILED" &&
     execution.status !== "TIMED_OUT"
   ) {
-    await new Promise((resolve) => setTimeout(resolve, 500))
+    await new Promise((resolve) => setTimeout(resolve, 2000))
     execution = await fetchExecution(executionArn)
     console.log(`Current status: ${execution.status}`)
   }
