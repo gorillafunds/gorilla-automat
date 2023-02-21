@@ -1,23 +1,23 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
-import { fetchStores } from "../../services"
+import { checkShopMinter } from "../../services"
 
-export const getContractStores = async (
+export const hasGorillaMinter = async (
   event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
-  const { contractId } = event.pathParameters!
+  const { shopId } = event.pathParameters!
   try {
-    const stores = await fetchStores(contractId!)
+    const checkIsSuccessful = await checkShopMinter(shopId!)
 
     const successResult: APIGatewayProxyResult = {
       statusCode: 200,
-      body: JSON.stringify(stores),
+      body: JSON.stringify({ hasGorillaMinter: checkIsSuccessful }),
     }
 
     return successResult
   } catch (error) {
     const errorResult: APIGatewayProxyResult = {
       statusCode: 500,
-      body: "Fetching stores from mintbase failed",
+      body: "Something went wrong during minter check",
     }
     return errorResult
   }
