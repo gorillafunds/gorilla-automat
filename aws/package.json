@@ -9,13 +9,15 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "start-api": "tsc && cdk synthesize && sam local start-api -t ./cdk.out/GorillaAutomat.template.json"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.110",
     "@types/jest": "^29.4.0",
     "@types/node": "18.13.0",
     "aws-cdk": "2.65.0",
+    "esbuild": "^0.17.10",
     "jest": "^29.4.2",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
