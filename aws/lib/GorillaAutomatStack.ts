@@ -4,9 +4,10 @@ import * as cdk from "aws-cdk-lib"
 import { Construct } from "constructs"
 import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway"
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs"
+import { addCorsOptions } from "./addCorsOptions"
 
 export class GorillaAutomatStack extends cdk.Stack {
-  private api = new RestApi(this, "GorillaAutomatApi")
+  private api = new RestApi(this, `${this.stackName}Api`)
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
@@ -31,10 +32,12 @@ export class GorillaAutomatStack extends cdk.Stack {
     })
 
     const integration = new LambdaIntegration(lambdaFn)
-    this.api.root
+    const resource = this.api.root
       .addResource("get-contract-stores")
       .addResource("{contractId}")
-      .addMethod("GET", integration)
+
+    resource.addMethod("GET", integration)
+    addCorsOptions(resource)
   }
 
   private addHasGorillaMinter = () => {
@@ -47,9 +50,11 @@ export class GorillaAutomatStack extends cdk.Stack {
     })
 
     const integration = new LambdaIntegration(lambdaFn)
-    this.api.root
+    const resource = this.api.root
       .addResource("has-gorilla-minter")
       .addResource("{shopId}")
-      .addMethod("GET", integration)
+
+    resource.addMethod("GET", integration)
+    addCorsOptions(resource)
   }
 }

@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { checkShopMinter } from "../../services"
+import { corsHeaderOptions } from "../_corsHeaderOptions"
 
 export const hasGorillaMinter = async (
   event: APIGatewayProxyEvent,
@@ -10,6 +11,7 @@ export const hasGorillaMinter = async (
 
     const successResult: APIGatewayProxyResult = {
       statusCode: 200,
+      headers: corsHeaderOptions,
       body: JSON.stringify({ hasGorillaMinter: checkIsSuccessful }),
     }
 

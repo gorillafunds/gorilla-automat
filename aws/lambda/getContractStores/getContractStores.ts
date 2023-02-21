@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { fetchStores } from "../../services"
+import { corsHeaderOptions } from "../_corsHeaderOptions"
 
 export const getContractStores = async (
   event: APIGatewayProxyEvent,
@@ -10,6 +11,7 @@ export const getContractStores = async (
 
     const successResult: APIGatewayProxyResult = {
       statusCode: 200,
+      headers: corsHeaderOptions,
       body: JSON.stringify(stores),
     }
 
