@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "api:dev": "pnpm -F api dev",
     "app:dev": "pnpm -F app dev",
-    "dev": "run-p api:dev app:dev"
+    "dev": "app:dev"
   },
   "keywords": [],
   "author": "smetzdev",

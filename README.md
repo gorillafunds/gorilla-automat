@@ -6,11 +6,15 @@ PNPM workspace for all gorilla-automat packages.
 
 First, run the development server:
 
-### From packages/designtokens directory
+### From root directory
 
 ```bash
   pnpm dev
 ```
+
+### With local API
+
+If you want to run automat with a local version of the api, you have to run docker and also start the api local api seperatly with `pnpm -F aws start-api`
 
 ## Structure
 
