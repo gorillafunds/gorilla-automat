@@ -3,6 +3,7 @@ import { Spinner } from "../../components"
 import { WizardStep, WizardStepContent } from "../../patterns"
 import { Screen } from "../types"
 import { useShopStorage, useSetupStorage } from "../../hooks"
+import { ScreenError } from ".."
 
 export type UploadingProps = Screen
 
@@ -12,11 +13,21 @@ export const Uploading = ({ actions, automat }: Screen) => {
   const setupData = useSetupStorage()
   const { shopId } = useShopStorage()
 
+  // Defines a screenError and calls actions.error with it
+  const throwUploadError = () => {
+    const screenError: ScreenError = {
+      title: "Upload Error",
+      message: "We could not upload your NFTs, please try again.",
+      showPrevButton: true,
+    }
+    actions.error(screenError)
+  }
+
   useEffect(() => {
     const upload = async () => {
       const uploadSuccess = await automat.uploadToArweave(setupData, shopId)
       if (!actionRef.current) {
-        const action = uploadSuccess ? actions.next : actions.error
+        const action = uploadSuccess ? actions.next : throwUploadError
         actionRef.current = true
         action()
       }
