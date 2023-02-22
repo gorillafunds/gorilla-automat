@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "api:dev": "pnpm -F api dev",
+    "api:dev": "pnpm -F aws start-api",
     "app:dev": "pnpm -F app dev",
-    "dev": "app:dev"
+    "dev": "run-p api:dev app:dev"
   },
   "keywords": [],
   "author": "smetzdev",

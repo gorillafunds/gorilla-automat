@@ -10,7 +10,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "start-api": "cdk synthesize && sam local start-api -t ./cdk.out/GorillaAutomat.template.json"
+    "start-api": "cdk synthesize && sam local start-api -t ./cdk.out/GorillaAutomat.template.json --port 4000"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.110",

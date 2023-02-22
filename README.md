@@ -12,9 +12,11 @@ First, run the development server:
   pnpm dev
 ```
 
-### With local API
+**🚨NOTE🚨**: You need to have docker running for the local api to work
 
-If you want to run automat with a local version of the api, you have to run docker and also start the api local api seperatly with `pnpm -F aws start-api`
+### Running with a external (hosted) version of the API
+
+Change the `GORILLA_API_URL` to the external url and run `pnpm -F app dev` or `pnpm app dev` from the root
 
 ## Structure
 
@@ -46,4 +48,7 @@ If you want to find out more about pnpm, go to the docs
 These are referenced in every package/app
 
 MINTBASE_API_KEY for mintbase authentication
-GORILLA_API_URL example: https://api.gorillashops.io
+GORILLA_API_URL example: https://api.gorillashops.io (for local set to http://localhost:4000)
+AWS_ACCESS_KEY_ID: Your AWS Users AccesKey
+AWS_SECRET_ACCESS_KEY: The secret to the AWS Users Acces key
+AWS_REGION: set to eu-central-1
