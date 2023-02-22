@@ -1,7 +1,6 @@
 import { Story, Meta } from "@storybook/react"
 import { MintPermission, MintPermissionProps } from "./index"
-import { mockActions } from "../storybookMocks"
-import { StorybookAutomat } from "@gorilla-automat/domain"
+import { mockActions, StorybookAutomat } from "../storybookMocks"
 import { withMaxWidth, withMockStorage } from "../../decorators"
 
 // TODO: Add error boundary that a shop needs to be selected first

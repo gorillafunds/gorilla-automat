@@ -1,4 +1,4 @@
-import { IGorillaAutomat } from "./types.d"
+import { IGorillaAutomat } from "@gorilla-automat/domain"
 // @ts-ignore
 import wait from "wait"
 

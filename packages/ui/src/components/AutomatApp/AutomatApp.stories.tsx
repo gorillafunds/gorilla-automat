@@ -1,6 +1,7 @@
 import { Story, Meta } from "@storybook/react"
 import { AutomatApp, AutomatAppProps } from "./index"
-import { GorillaAutomat, StorybookAutomat } from "@gorilla-automat/domain"
+import { GorillaAutomat } from "@gorilla-automat/domain"
+import { StorybookAutomat } from "../../screens/storybookMocks"
 import { withIframeWarning, withBusinessLogicWarning } from "../../decorators"
 
 export default {
