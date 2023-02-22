@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { IGorillaAutomat } from "@gorilla-automat/domain"
 import { Screen } from "../types"
 import { Option } from "../../components"
+import { ScreenError } from ".."
 
 export const useShops = (
   getShops: IGorillaAutomat["getShops"],
@@ -10,20 +11,40 @@ export const useShops = (
   const [shops, setShops] = useState<Option[]>()
   const [selectedShop, setSelectedShop] = useState<Option>()
 
+  // Defines a screenError and calls actions.error with it
+  const throwShopError = () => {
+    const screenError: ScreenError = {
+      title: "Select Shop Error",
+      message: (
+        <>
+          Your wallet does not seem to have any shops!
+          <br />
+          Maybe you have another wallet which already contains at least one
+          shop?
+          <br />
+          If not, This might be the perfect time to head on over to Mintbase,
+          create a shop, and come back later.
+        </>
+      ),
+      showPrevButton: false,
+    }
+    actions.error(screenError)
+  }
+
+  // Get a list of shops on intial load and populate screen
   useEffect(() => {
     const initializeShops = async () => {
       try {
         const apiShops = await getShops()
-        console.log(apiShops)
         if (!apiShops.length) {
-          actions.error()
+          throwShopError()
           return
         }
 
         setShops(apiShops)
         setSelectedShop(apiShops[0])
       } catch (_) {
-        actions.error()
+        throwShopError()
       }
     }
 
