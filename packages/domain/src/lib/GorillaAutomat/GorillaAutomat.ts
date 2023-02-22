@@ -86,8 +86,8 @@ export class GorillaAutomat implements IGorillaAutomat {
       // Actual upload
       this.mintConfig = await Promise.all(
         this.files.map(async (file, index) => {
-          this.wallet.minter?.setMetadata(metaDataArray[index], true)
           await this.wallet.minter?.uploadField(MetadataField.Media, file)
+          this.wallet.minter?.setMetadata(metaDataArray[index])
           const id = await this.wallet.minter?.getMetadataId()
           const account = this.wallet.activeAccount?.accountId
           const signature = await this.wallet.signMessage("hello")
