@@ -13,5 +13,5 @@ export type AutomatState = keyof typeof states
 export type AutomatActions = {
   next: () => void
   prev: () => void
-  error: () => void
+  error: (screenError?) => void
 }

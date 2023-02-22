@@ -1,16 +1,21 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useMachine } from "@xstate/react"
 import { automatMachine } from "./_machine"
 import { getScreen } from "./_getScreen"
 import { AutomatState, AutomatActions } from "../types"
+import { ScreenError } from "../../../screens"
 
 export const useScreenLogic = () => {
   const [current, send] = useMachine(machineInitializer)
+  const [screenError, setScreenError] = useState<ScreenError>()
 
   const actions: AutomatActions = {
     next: () => send("NEXT"),
     prev: () => send("PREV"),
-    error: () => send("ERROR"),
+    error: (options?: ScreenError) => {
+      setScreenError(options)
+      send("ERROR")
+    },
   }
 
   useEffect(() => {
@@ -25,6 +30,7 @@ export const useScreenLogic = () => {
 
   return {
     CurrentScreen,
+    screenError,
     actions,
     currentState: current.value,
     sequenceMap: current.context.sequenceMap,

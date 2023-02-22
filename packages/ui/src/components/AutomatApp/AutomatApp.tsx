@@ -9,7 +9,8 @@ export type AutomatAppProps = {
 }
 
 export const AutomatApp = ({ AutomatClass }: AutomatAppProps) => {
-  const { CurrentScreen, actions, currentState, sequenceMap } = useScreenLogic()
+  const { CurrentScreen, actions, currentState, sequenceMap, screenError } =
+    useScreenLogic()
   const automat = useAutomatInstance(
     actions,
     currentState as string,
@@ -27,7 +28,7 @@ export const AutomatApp = ({ AutomatClass }: AutomatAppProps) => {
             />
           )}
           <SequenceMap {...sequenceMap} />
-          <CurrentScreen {...{ actions, automat }} />
+          <CurrentScreen {...{ actions, automat, screenError }} />
         </>
       ) : (
         <Spinner />
