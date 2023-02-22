@@ -1,8 +1,7 @@
 import { Story, Meta } from "@storybook/react"
 import { SelectShopError, SelectShopErrorProps } from "./index"
-import { StorybookAutomat } from "@gorilla-automat/domain"
 import { withMaxWidth } from "../../decorators"
-import { mockActions } from "../storybookMocks"
+import { mockActions, StorybookAutomat } from "../storybookMocks"
 
 export default {
   title: "Screens/SelectShopError",

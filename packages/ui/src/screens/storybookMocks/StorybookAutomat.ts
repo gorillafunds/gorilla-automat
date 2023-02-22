@@ -1,5 +1,4 @@
-import { IGorillaAutomat } from "./types.d"
-// @ts-ignore
+import { IGorillaAutomat } from "@gorilla-automat/domain"
 import wait from "wait"
 
 export class StorybookAutomat implements IGorillaAutomat {
