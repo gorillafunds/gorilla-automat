@@ -16,6 +16,9 @@ export class GorillaAutomat implements IGorillaAutomat {
   public metaData: any
   private mintConfig: any
   private listConfig: any[] = []
+  // TODO: Remove as soon as next does not render twice
+  private uploadStarted = false
+  private processStarted = false
 
   public initializeWallet = async () => {
     const { data } = await new Wallet().init({
@@ -68,6 +71,9 @@ export class GorillaAutomat implements IGorillaAutomat {
   }
 
   public uploadToArweave = async (config: ArweaveConfig, storeId: string) => {
+    if (this.uploadStarted) return
+    this.uploadStarted = true
+
     if (!this.wallet.minter) {
       throw new Error("Wallet is not connected")
     }
@@ -77,15 +83,11 @@ export class GorillaAutomat implements IGorillaAutomat {
     const metaDataArray = buildMetadataArray(this.files, config, this.metaData)
 
     try {
-      // Configure minter
-      for (const metaDataItem of metaDataArray) {
-        this.wallet.minter.setMetadata(metaDataItem)
-      }
-
       // Actual upload
       this.mintConfig = await Promise.all(
-        this.files.map(async (file) => {
+        this.files.map(async (file, index) => {
           await this.wallet.minter?.uploadField(MetadataField.Media, file)
+          this.wallet.minter?.setMetadata(metaDataArray[index])
           const id = await this.wallet.minter?.getMetadataId()
           const account = this.wallet.activeAccount?.accountId
           const signature = await this.wallet.signMessage("hello")
@@ -115,6 +117,9 @@ export class GorillaAutomat implements IGorillaAutomat {
   }
 
   public mintAndList = async (storeId: string, price: string | number) => {
+    if (this.processStarted) return
+    this.processStarted = true
+
     if (!this.wallet.minter) {
       throw new Error("Wallet is not connected")
     }

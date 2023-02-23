@@ -26,16 +26,16 @@ export const ProcessRunning = ({ actions, automat }: ProcessRunningProps) => {
 
   // Start process on the first render
   useEffect(() => {
+    if (actionRef.current) return
     const mintAndList = async () => {
       const result = await automat.mintAndList(shopId, price)
 
-      if (!actionRef.current) {
-        const action = result ? actions.next : throwProcessError
-        actionRef.current = true
-        action()
-      }
+      const action = result ? actions.next : throwProcessError
+      action()
     }
+
     mintAndList()
+    actionRef.current = true
   }, [])
 
   return (
