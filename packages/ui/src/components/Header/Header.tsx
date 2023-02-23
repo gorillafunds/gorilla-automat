@@ -10,7 +10,12 @@ export const Header = ({ className }: HeaderProps) => {
   return (
     <header className={styles}>
       <AutomatLogo className="h-8 w-8" />
-      <h1 className="text-400 mb-px">Automat</h1>
+      <h1 className="text-400 mb-px">
+        Automat{" "}
+        <span className="font-sans text-200 !text-yellow-700">
+          v1.0.0-alpha.2
+        </span>
+      </h1>
     </header>
   )
 }
