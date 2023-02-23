@@ -19,7 +19,7 @@ export const Footer = ({ className }: FooterProps) => {
         className="font-medium underline underline-offset-4"
         target="_blank"
         rel="noreferrer"
-        href="https://google.de"
+        href="https://gorillashops.io/support"
       >
         Need help?
       </a>
