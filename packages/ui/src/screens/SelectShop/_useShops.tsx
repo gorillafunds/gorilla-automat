@@ -36,6 +36,7 @@ export const useShops = (
     const initializeShops = async () => {
       try {
         const apiShops = await getShops()
+
         if (!apiShops.length) {
           throwShopError()
           return

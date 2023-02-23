@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react"
 import { GorillaLogo } from "../../components"
 import { WizardStep, WizardStepContent } from "../../patterns"
 import { Screen } from "../types"
-import { useShopStorage } from "../../hooks"
+import { useShopStorage, useSetupStorage } from "../../hooks"
 import { ScreenError } from ".."
 
 export type ProcessRunningProps = Screen
@@ -12,6 +12,7 @@ export const ProcessRunning = ({ actions, automat }: ProcessRunningProps) => {
   // TODO: Try out after switching away from NextJs
   const actionRef = useRef<boolean>(false)
   const { shopId } = useShopStorage()
+  const { price } = useSetupStorage()
 
   // Defines a screenError and calls actions.error with it
   const throwProcessError = () => {
@@ -26,7 +27,7 @@ export const ProcessRunning = ({ actions, automat }: ProcessRunningProps) => {
   // Start process on the first render
   useEffect(() => {
     const mintAndList = async () => {
-      const result = await automat.mintAndList(shopId)
+      const result = await automat.mintAndList(shopId, price)
 
       if (!actionRef.current) {
         const action = result ? actions.next : throwProcessError
