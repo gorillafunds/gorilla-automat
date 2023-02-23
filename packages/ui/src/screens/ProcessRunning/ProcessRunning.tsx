@@ -4,6 +4,7 @@ import { GorillaLogo } from "../../components"
 import { WizardStep, WizardStepContent } from "../../patterns"
 import { Screen } from "../types"
 import { useShopStorage } from "../../hooks"
+import { ScreenError } from ".."
 
 export type ProcessRunningProps = Screen
 
@@ -12,13 +13,23 @@ export const ProcessRunning = ({ actions, automat }: ProcessRunningProps) => {
   const actionRef = useRef<boolean>(false)
   const { shopId } = useShopStorage()
 
+  // Defines a screenError and calls actions.error with it
+  const throwProcessError = () => {
+    const screenError: ScreenError = {
+      title: "Mint & List Error",
+      message: "Something wen't wrong, please try again",
+      showPrevButton: true,
+    }
+    actions.error(screenError)
+  }
+
   // Start process on the first render
   useEffect(() => {
     const mintAndList = async () => {
       const result = await automat.mintAndList(shopId)
 
       if (!actionRef.current) {
-        const action = result ? actions.next : actions.error
+        const action = result ? actions.next : throwProcessError
         actionRef.current = true
         action()
       }
