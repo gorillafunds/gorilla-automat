@@ -17,7 +17,7 @@ module.exports = withTM({
     MINTBASE_API_KEY: process.env.MINTBASE_API_KEY,
     AWS_KEY: process.env.AWS_KEY,
     AWS_SECRET: process.env.AWS_SECRET,
-    AWS_REGION: process.env.AWS_REGION,
+    AWS_REGION_NAME: process.env.AWS_REGION_NAME,
   },
   images: {
     domains: ["cdn.sanity.io", "arweave.net"],

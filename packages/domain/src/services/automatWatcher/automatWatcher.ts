@@ -2,7 +2,7 @@ import * as AWS from "aws-sdk"
 const StepFunctions = require("aws-sdk/clients/stepfunctions")
 
 const stepFunctions = new StepFunctions({
-  region: process.env.AWS_REGION,
+  region: process.env.AWS_REGION_NAME,
   accessKeyId: process.env.AWS_KEY,
   secretAccessKey: process.env.AWS_SECRET,
 })
