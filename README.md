@@ -6,11 +6,17 @@ PNPM workspace for all gorilla-automat packages.
 
 First, run the development server:
 
-### From packages/designtokens directory
+### From root directory
 
 ```bash
   pnpm dev
 ```
+
+**🚨NOTE🚨**: You need to have docker running for the local api to work
+
+### Running with a external (hosted) version of the API
+
+Change the `GORILLA_API_URL` to the external url and run `pnpm -F app dev` or `pnpm app dev` from the root
 
 ## Structure
 
@@ -42,4 +48,7 @@ If you want to find out more about pnpm, go to the docs
 These are referenced in every package/app
 
 MINTBASE_API_KEY for mintbase authentication
-GORILLA_API_URL example: https://api.gorillashops.io
+GORILLA_API_URL example: https://api.gorillashops.io (for local set to http://localhost:4000)
+AWS_ACCESS_KEY_ID: Your AWS Users AccesKey
+AWS_SECRET_ACCESS_KEY: The secret to the AWS Users Acces key
+AWS_REGION: set to eu-central-1
