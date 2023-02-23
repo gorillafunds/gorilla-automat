@@ -16,7 +16,7 @@ export const getScreen = (currentState: AutomatState): ElementType => {
     mintStart: Screens.StartProcess,
     mintProcess: Screens.ProcessRunning,
     mintError: Screens.Error,
-    finished: Screens.FinishedHasShop,
+    finished: Screens.Finished,
   }
 
   return screenMap[currentState]
