@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build:netlify": "run-s build:ui build",
+    "build:ui": "cd ../packages/ui && pnpm tailwind",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
