@@ -21,11 +21,9 @@ describe("buildMetadataArray", () => {
       testMetadataJson,
     )
 
-    console.log(result)
-
     expect(result[0]).toEqual({
+      ...testMetadataJson[0],
       ...testConfig,
-      attributes: testMetadataJson[0].attributes,
     })
   })
 })
