@@ -1,5 +1,6 @@
 import { states } from "./_useScreenLogic/_states"
 import { SequenceMapProps } from "@gorilla-automat/ui"
+import { ScreenError } from "../../screens"
 
 export type AutomatEvents = { type: "NEXT" | "PREV" | "ERROR" }
 
@@ -13,5 +14,5 @@ export type AutomatState = keyof typeof states
 export type AutomatActions = {
   next: () => void
   prev: () => void
-  error: (screenError?) => void
+  error: (screenError?: ScreenError) => void
 }

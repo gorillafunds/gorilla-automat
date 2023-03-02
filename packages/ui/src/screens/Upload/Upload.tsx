@@ -29,7 +29,21 @@ export const Upload = ({ actions, automat }: UploadProps) => {
           showPrevButton: true,
         })
     }
-    validateZip()
+    const processFile = async () => {
+      const processSuccess = await automat.handleZip(file)
+
+      if (!processSuccess)
+        actions.error({
+          title: "JSON Error",
+          message: "The provided JSON is invalid",
+          showPrevButton: true,
+        })
+    }
+
+    if (file) {
+      validateZip()
+      processFile()
+    }
   }, [file, automat])
 
   return (

@@ -8,7 +8,12 @@ import {
   extractFileArrayJson,
   pollExecution,
 } from "../../services"
-import { getMinter, buildMetadataArray, splitArrayByAmount } from "../../helper"
+import {
+  getMinter,
+  buildMetadataArray,
+  splitArrayByAmount,
+  validateMetadata,
+} from "../../helper"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet!: Wallet
@@ -82,8 +87,14 @@ export class GorillaAutomat implements IGorillaAutomat {
     const fileArray = await unpackZip(zipFile)
     const { json, array } = await extractFileArrayJson(fileArray)
     if (array.length > 10) return false
+
+    // Validate json
+    const jsonIsValid = validateMetadata(json)
+    if (!jsonIsValid) return false
+
     this.files = array
     this.metaData = json
+
     return true
   }
 

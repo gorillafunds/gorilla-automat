@@ -43,6 +43,6 @@ These are referenced in every package/app
 
 MINTBASE_API_KEY for mintbase authentication
 GORILLA_API_URL example: https://api.gorillashops.io (for local set to http://localhost:4000)
-AWS_ACCESS_KEY_ID: Your AWS Users AccesKey
-AWS_SECRET_ACCESS_KEY: The secret to the AWS Users Acces key
-AWS_REGION: set to eu-central-1
+AWS_KEY: Your AWS Users AccesKey
+AWS_SECRET: The secret to the AWS Users Acces key
+AWS_REGION_NAME: set to eu-central-1
