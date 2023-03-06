@@ -6,7 +6,7 @@ This package represents the business logic for the gorilla automat
 
 First, run the development server:
 
-### From packages/designtokens directory
+### From packages/domain directory
 
 ```bash
   pnpm dev

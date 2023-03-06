@@ -12,12 +12,6 @@ First, run the development server:
   pnpm dev
 ```
 
-**🚨NOTE🚨**: You need to have docker running for the local api to work
-
-### Running with a external (hosted) version of the API
-
-Change the `GORILLA_API_URL` to the external url and run `pnpm -F app dev` or `pnpm app dev` from the root
-
 ## Structure
 
 The Workspace is split into packages and the app folder
