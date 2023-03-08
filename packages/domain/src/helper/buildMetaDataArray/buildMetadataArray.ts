@@ -6,7 +6,7 @@ export const buildMetadataArray = (
   metaDataJson: any,
 ) => {
   const metaDataArray = fileArray.map((file, index) => {
-    const { attributes } = metaDataJson.find((current: any) => {
+    const metaData = metaDataJson.find((current: any) => {
       return file.name.includes(current.name)
     })
 
@@ -15,10 +15,11 @@ export const buildMetadataArray = (
     const description = replaceIndexString(config.description, index + 1)
 
     return {
+      ...metaData,
+      // Config, title and description, override metaData
       ...config,
       title,
       description,
-      attributes,
     }
   })
 

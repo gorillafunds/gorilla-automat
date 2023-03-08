@@ -1,6 +1,10 @@
 export const testMetadataJson = [
   {
     name: "testsvg",
+    description: "testsvg description",
+    title: "testsvg title",
+    category: "membership",
+    tags: ["membership"],
     attributes: [
       {
         trait_type: "background",
