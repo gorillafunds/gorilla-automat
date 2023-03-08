@@ -12,6 +12,8 @@ import { getMinter, buildMetadataArray } from "../../helper"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet!: Wallet
+  private signature: any
+  private message!: string
   public files!: File[]
   public metaData: any
   private mintConfig: any
@@ -31,9 +33,18 @@ export class GorillaAutomat implements IGorillaAutomat {
   }
 
   public connectWallet = async () => {
-    this.wallet.connect({ requestSignIn: true })
+    await this.wallet.connect({ requestSignIn: true })
+
     // Don't call the next screen, it happens on redirect
     return false
+  }
+
+  private signateWallet = async () => {
+    const API_ENDPOINT = `${process.env.GORILLA_API_URL}/get-message`
+    const response = await axios.get(API_ENDPOINT)
+    this.message = response.data
+
+    this.signature = await this.wallet.signMessage(this.message)
   }
 
   public disconnectWallet = () => {
@@ -74,6 +85,9 @@ export class GorillaAutomat implements IGorillaAutomat {
     if (this.uploadStarted) return
     this.uploadStarted = true
 
+    // Signate wallet for the first time
+    this.signateWallet()
+
     if (!this.wallet.minter) {
       throw new Error("Wallet is not connected")
     }
@@ -90,10 +104,9 @@ export class GorillaAutomat implements IGorillaAutomat {
           this.wallet.minter?.setMetadata(metaDataArray[index])
           const id = await this.wallet.minter?.getMetadataId()
           const account = this.wallet.activeAccount?.accountId
-          const signature = await this.wallet.signMessage("hello")
 
           return {
-            signature,
+            signature: this.signature,
             account,
             storeId,
             minter,
@@ -125,13 +138,14 @@ export class GorillaAutomat implements IGorillaAutomat {
     }
     const account = this.wallet.activeAccount?.accountId
     const minter = getMinter(storeId)
-    const signature = await this.wallet.signMessage("hello")
 
     // Minting process
     const mintResponse = await axios.post(API_ENDPOINT, {
       function: "mint",
       array: this.mintConfig,
+      message: this.message,
     })
+
     const mintResult = mintResponse.data
     if (!mintResult.executionArn) return false
 
@@ -158,9 +172,11 @@ export class GorillaAutomat implements IGorillaAutomat {
       price,
     }))
 
+    this.signateWallet()
+
     tokens.forEach((token: any) => {
       const listConfig = {
-        signature,
+        signature: this.signature,
         account,
         storeId: storeId,
         minter,
@@ -174,6 +190,7 @@ export class GorillaAutomat implements IGorillaAutomat {
     const listResponse = await axios.post(API_ENDPOINT, {
       array: this.listConfig,
       function: "list",
+      message: this.message,
     })
     const listResult = listResponse.data
     if (!listResult.executionArn) return false
