@@ -144,6 +144,7 @@ export class GorillaAutomat implements IGorillaAutomat {
       function: "mint",
       array: this.mintConfig,
       message: this.message,
+      signature: this.signature,
     })
 
     const mintResult = mintResponse.data
@@ -191,6 +192,7 @@ export class GorillaAutomat implements IGorillaAutomat {
       array: this.listConfig,
       function: "list",
       message: this.message,
+      signature: this.signature,
     })
     const listResult = listResponse.data
     if (!listResult.executionArn) return false
