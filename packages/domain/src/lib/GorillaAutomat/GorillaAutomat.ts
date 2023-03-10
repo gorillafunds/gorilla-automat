@@ -138,7 +138,6 @@ export class GorillaAutomat implements IGorillaAutomat {
     }
     const account = this.wallet.activeAccount?.accountId
     const minter = getMinter(storeId)
-
     // Minting process
     const mintResponse = await axios.post(API_ENDPOINT, {
       function: "mint",
@@ -157,7 +156,6 @@ export class GorillaAutomat implements IGorillaAutomat {
       (prev: any, execResult: any) => {
         let body = execResult.execution_results.Payload.body.Payload.body
         let parsedBody = JSON.parse(body)
-        console.log("parsedBody", parsedBody)
         const bodyReceipts = parsedBody.map((item: any) => {
           const receipt = item.data[0].token_ids
           return receipt
@@ -173,7 +171,7 @@ export class GorillaAutomat implements IGorillaAutomat {
       price,
     }))
 
-    this.signateWallet()
+    await this.signateWallet()
 
     tokens.forEach((token: any) => {
       const listConfig = {
@@ -210,5 +208,5 @@ type ArweaveConfig = {
   description: string
 }
 
-const API_URL = "https://2usno4ct5l.execute-api.eu-central-1.amazonaws.com/prod"
+const API_URL = "https://o2wxtikji9.execute-api.eu-central-1.amazonaws.com/prod"
 const API_ENDPOINT = `${API_URL}/start-parent-automat`
