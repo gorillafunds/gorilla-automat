@@ -208,5 +208,5 @@ type ArweaveConfig = {
   description: string
 }
 
-const API_URL = "https://o2wxtikji9.execute-api.eu-central-1.amazonaws.com/prod"
+const API_URL = "https://piondydaog.execute-api.eu-central-1.amazonaws.com/prod"
 const API_ENDPOINT = `${API_URL}/start-parent-automat`
