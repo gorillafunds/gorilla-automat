@@ -9,6 +9,7 @@ import {
   pollExecution,
 } from "../../services"
 import { getMinter, buildMetadataArray } from "../../helper"
+import { exec } from "child_process"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet!: Wallet
@@ -30,6 +31,10 @@ export class GorillaAutomat implements IGorillaAutomat {
     })
 
     this.wallet = data.wallet
+  }
+
+  async sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
   public connectWallet = async () => {
@@ -76,6 +81,7 @@ export class GorillaAutomat implements IGorillaAutomat {
   public handleZip = async (zipFile: File) => {
     // unpack,sanitize and process zipFile
     const fileArray = await unpackZip(zipFile)
+    console.log("fileArray", fileArray)
     const { json, array } = await extractFileArrayJson(fileArray)
     this.files = array
     this.metaData = json
@@ -94,6 +100,7 @@ export class GorillaAutomat implements IGorillaAutomat {
     const minter = getMinter(storeId)
 
     // Build metadata array from files
+    await this.sleep(1000)
     const metaDataArray = buildMetadataArray(this.files, config, this.metaData)
 
     try {
@@ -106,7 +113,7 @@ export class GorillaAutomat implements IGorillaAutomat {
           const account = this.wallet.activeAccount?.accountId
 
           return {
-            signature: this.signature,
+            signature: "test",
             account,
             storeId,
             minter,
@@ -151,22 +158,11 @@ export class GorillaAutomat implements IGorillaAutomat {
 
     // Poll Minting process
     const execution = await pollExecution(mintResult.executionArn)
+    console.log("execution", execution)
     // Build list config
-    const receipts = execution.execution_results.reduce(
-      (prev: any, execResult: any) => {
-        let body = execResult.execution_results.Payload.body.Payload.body
-        let parsedBody = JSON.parse(body)
-        const bodyReceipts = parsedBody.map((item: any) => {
-          const receipt = item.data[0].token_ids
-          return receipt
-        })
-        return prev.concat(...bodyReceipts)
-      },
-      [],
-    )
 
     let tokens: any[] = []
-    tokens = receipts.map((tokenId: string) => ({
+    tokens = execution.result[0].map((tokenId: string) => ({
       id: tokenId,
       price,
     }))
@@ -175,7 +171,7 @@ export class GorillaAutomat implements IGorillaAutomat {
 
     tokens.forEach((token: any) => {
       const listConfig = {
-        signature: this.signature,
+        signature: "test",
         account,
         storeId: storeId,
         minter,
