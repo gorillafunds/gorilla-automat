@@ -8,8 +8,7 @@ import {
   extractFileArrayJson,
   pollExecution,
 } from "../../services"
-import { getMinter, buildMetadataArray } from "../../helper"
-import { exec } from "child_process"
+import { getMinter, buildMetadataArray, splitArrayByAmount } from "../../helper"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet!: Wallet
@@ -91,7 +90,7 @@ export class GorillaAutomat implements IGorillaAutomat {
     this.uploadStarted = true
 
     // Signate wallet for the first time
-    this.signateWallet()
+    await this.signateWallet()
 
     if (!this.wallet.minter) {
       throw new Error("Wallet is not connected")
@@ -104,7 +103,7 @@ export class GorillaAutomat implements IGorillaAutomat {
 
     try {
       // Actual upload
-      this.mintConfig = await Promise.all(
+      const rawMintConfig = await Promise.all(
         this.files.map(async (file, index) => {
           await this.wallet.minter?.uploadField(MetadataField.Media, file)
           this.wallet.minter?.setMetadata(metaDataArray[index])
@@ -128,6 +127,11 @@ export class GorillaAutomat implements IGorillaAutomat {
           }
         }),
       )
+
+      // Make sure every item has a max amount of 50
+      const sanitizedMintConfig = splitArrayByAmount(rawMintConfig)
+
+      this.mintConfig = sanitizedMintConfig
     } catch (_) {
       return false
     }
