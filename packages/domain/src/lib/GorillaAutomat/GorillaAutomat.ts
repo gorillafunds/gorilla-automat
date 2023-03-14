@@ -9,9 +9,12 @@ import {
   pollExecution,
 } from "../../services"
 import { getMinter, buildMetadataArray } from "../../helper"
+import { exec } from "child_process"
 
 export class GorillaAutomat implements IGorillaAutomat {
   private wallet!: Wallet
+  private signature: any
+  private message!: string
   public files!: File[]
   public metaData: any
   private mintConfig: any
@@ -30,10 +33,23 @@ export class GorillaAutomat implements IGorillaAutomat {
     this.wallet = data.wallet
   }
 
+  async sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
+
   public connectWallet = async () => {
-    this.wallet.connect({ requestSignIn: true })
+    await this.wallet.connect({ requestSignIn: true })
+
     // Don't call the next screen, it happens on redirect
     return false
+  }
+
+  private signateWallet = async () => {
+    const API_ENDPOINT = `${process.env.GORILLA_API_URL}/get-message`
+    const response = await axios.get(API_ENDPOINT)
+    this.message = response.data
+
+    this.signature = await this.wallet.signMessage(this.message)
   }
 
   public disconnectWallet = () => {
@@ -74,12 +90,16 @@ export class GorillaAutomat implements IGorillaAutomat {
     if (this.uploadStarted) return
     this.uploadStarted = true
 
+    // Signate wallet for the first time
+    this.signateWallet()
+
     if (!this.wallet.minter) {
       throw new Error("Wallet is not connected")
     }
     const minter = getMinter(storeId)
 
     // Build metadata array from files
+    await this.sleep(1000)
     const metaDataArray = buildMetadataArray(this.files, config, this.metaData)
 
     try {
@@ -90,10 +110,9 @@ export class GorillaAutomat implements IGorillaAutomat {
           this.wallet.minter?.setMetadata(metaDataArray[index])
           const id = await this.wallet.minter?.getMetadataId()
           const account = this.wallet.activeAccount?.accountId
-          const signature = await this.wallet.signMessage("hello")
 
           return {
-            signature,
+            signature: "test",
             account,
             storeId,
             minter,
@@ -125,42 +144,32 @@ export class GorillaAutomat implements IGorillaAutomat {
     }
     const account = this.wallet.activeAccount?.accountId
     const minter = getMinter(storeId)
-    const signature = await this.wallet.signMessage("hello")
-
     // Minting process
     const mintResponse = await axios.post(API_ENDPOINT, {
       function: "mint",
       array: this.mintConfig,
+      message: this.message,
+      signature: this.signature,
     })
+
     const mintResult = mintResponse.data
     if (!mintResult.executionArn) return false
 
     // Poll Minting process
     const execution = await pollExecution(mintResult.executionArn)
     // Build list config
-    const receipts = execution.execution_results.reduce(
-      (prev: any, execResult: any) => {
-        let body = execResult.execution_results.Payload.body.Payload.body
-        let parsedBody = JSON.parse(body)
-        console.log("parsedBody", parsedBody)
-        const bodyReceipts = parsedBody.map((item: any) => {
-          const receipt = item.data[0].token_ids
-          return receipt
-        })
-        return prev.concat(...bodyReceipts)
-      },
-      [],
-    )
 
     let tokens: any[] = []
-    tokens = receipts.map((tokenId: string) => ({
+    tokens = execution.result[0].map((tokenId: string) => ({
       id: tokenId,
       price,
     }))
 
+    await this.signateWallet()
+
     tokens.forEach((token: any) => {
       const listConfig = {
-        signature,
+        signature: "test",
         account,
         storeId: storeId,
         minter,
@@ -174,6 +183,8 @@ export class GorillaAutomat implements IGorillaAutomat {
     const listResponse = await axios.post(API_ENDPOINT, {
       array: this.listConfig,
       function: "list",
+      message: this.message,
+      signature: this.signature,
     })
     const listResult = listResponse.data
     if (!listResult.executionArn) return false
@@ -191,5 +202,5 @@ type ArweaveConfig = {
   description: string
 }
 
-const API_URL = "https://2usno4ct5l.execute-api.eu-central-1.amazonaws.com/prod"
+const API_URL = "https://piondydaog.execute-api.eu-central-1.amazonaws.com/prod"
 const API_ENDPOINT = `${API_URL}/start-parent-automat`
