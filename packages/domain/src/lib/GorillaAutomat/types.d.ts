@@ -1,7 +1,7 @@
 import { Wallet } from "mintbase"
 
 export interface IGorillaAutomat {
-  initializeWallet: () => Promise<any>
+  initializeWallet: (isMainnet?: boolean) => Promise<any>
   /** Returns a boolean if the next screen should be called or not */
   connectWallet: () => Promise<boolean>
   disconnectWallet: () => void
