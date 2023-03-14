@@ -81,7 +81,6 @@ export class GorillaAutomat implements IGorillaAutomat {
   public handleZip = async (zipFile: File) => {
     // unpack,sanitize and process zipFile
     const fileArray = await unpackZip(zipFile)
-    console.log("fileArray", fileArray)
     const { json, array } = await extractFileArrayJson(fileArray)
     this.files = array
     this.metaData = json
@@ -158,7 +157,6 @@ export class GorillaAutomat implements IGorillaAutomat {
 
     // Poll Minting process
     const execution = await pollExecution(mintResult.executionArn)
-    console.log("execution", execution)
     // Build list config
 
     let tokens: any[] = []
