@@ -16,9 +16,6 @@ export const useSetupFields = (actions: Screen["actions"]) => {
       ...prev,
       ...next,
     }
-    // TODO: Remove copy limit as soon as mintbase confirms
-    // Make sure only 20 copies can be minted
-    if (newValue.amount > 20) newValue.amount = 20
 
     return newValue
   }, defaultFields)
