@@ -6,15 +6,20 @@ import { useAutomatInstance } from "./_useAutomatInstance"
 
 export type AutomatAppProps = {
   AutomatClass: AutomatConstructor
+  isMainnet?: boolean
 }
 
-export const AutomatApp = ({ AutomatClass }: AutomatAppProps) => {
+export const AutomatApp = ({
+  AutomatClass,
+  isMainnet = false,
+}: AutomatAppProps) => {
   const { CurrentScreen, actions, currentState, sequenceMap, screenError } =
     useScreenLogic()
   const automat = useAutomatInstance(
     actions,
     currentState as string,
     AutomatClass,
+    isMainnet,
   )
 
   return (
