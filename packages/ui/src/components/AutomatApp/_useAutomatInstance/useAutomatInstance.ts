@@ -6,6 +6,7 @@ export const useAutomatInstance = (
   actions: AutomatActions,
   currentState: string,
   AutomatClass: AutomatConstructor,
+  isMainnet = false,
 ) => {
   const actionRef = useRef(false)
   const [automat, setAutomat] = useState<IGorillaAutomat>()
@@ -15,7 +16,7 @@ export const useAutomatInstance = (
     if (actionRef.current) return
     const initializeAutomat = async () => {
       const newAutomat = new AutomatClass()
-      await newAutomat.initializeWallet()
+      await newAutomat.initializeWallet(isMainnet)
       setAutomat(newAutomat)
     }
     actionRef.current = true

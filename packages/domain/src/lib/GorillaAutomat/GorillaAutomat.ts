@@ -22,9 +22,9 @@ export class GorillaAutomat implements IGorillaAutomat {
   private uploadStarted = false
   private processStarted = false
 
-  public initializeWallet = async () => {
+  public initializeWallet = async (isMainnet = false) => {
     const { data } = await new Wallet().init({
-      networkName: Network.testnet,
+      networkName: isMainnet ? Network.mainnet : Network.testnet,
       chain: Chain.near,
       apiKey: process.env.MINTBASE_API_KEY as string,
     })
