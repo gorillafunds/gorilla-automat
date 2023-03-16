@@ -154,6 +154,7 @@ export class GorillaAutomat implements IGorillaAutomat {
       array: this.mintConfig,
       message: this.message,
       signature: this.signature,
+      arrayLength: this.mintConfig.length,
     })
 
     const mintResult = mintResponse.data
@@ -189,6 +190,7 @@ export class GorillaAutomat implements IGorillaAutomat {
       function: "list",
       message: this.message,
       signature: this.signature,
+      arrayLength: this.listConfig.length,
     })
     const listResult = listResponse.data
     if (!listResult.executionArn) return false
@@ -206,5 +208,5 @@ type ArweaveConfig = {
   description: string
 }
 
-const API_URL = "https://piondydaog.execute-api.eu-central-1.amazonaws.com/prod"
+const API_URL = "https://0sqivb3uj1.execute-api.eu-central-1.amazonaws.com/prod"
 const API_ENDPOINT = `${API_URL}/start-parent-automat`
