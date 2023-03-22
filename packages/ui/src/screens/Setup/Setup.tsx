@@ -32,6 +32,7 @@ export const Setup = ({ actions }: SetupProps) => {
           label="Copies of each NFT"
           name="amount"
           type="number"
+          max={20}
           value={fields.amount}
           onChange={handleChange}
         />
