@@ -81,8 +81,10 @@ export class GorillaAutomat implements IGorillaAutomat {
     // unpack,sanitize and process zipFile
     const fileArray = await unpackZip(zipFile)
     const { json, array } = await extractFileArrayJson(fileArray)
+    if (array.length > 10) return false
     this.files = array
     this.metaData = json
+    return true
   }
 
   public uploadToArweave = async (config: ArweaveConfig, storeId: string) => {

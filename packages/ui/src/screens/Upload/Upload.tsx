@@ -17,7 +17,19 @@ export const Upload = ({ actions, automat }: UploadProps) => {
 
   // Handle file change
   useEffect(() => {
-    if (file) automat.handleZip(file)
+    if (!file) return
+    const validateZip = async () => {
+      // Valid means the amount of nft files is <= 10
+      const zipIsValid = await automat.handleZip(file)
+
+      if (!zipIsValid)
+        actions.error({
+          title: "File Error",
+          message: "The max amount of files is 10",
+          showPrevButton: true,
+        })
+    }
+    validateZip()
   }, [file, automat])
 
   return (
@@ -37,6 +49,10 @@ export const Upload = ({ actions, automat }: UploadProps) => {
             sample ZIP file
           </a>
           , unpack it and learn how it must be structured.
+        </Message>
+        <Message variant="important" className="mt-6">
+          At the moment we are limited to a max amount of 10 files per ZIP (JSON
+          File not counted).
         </Message>
       </WizardStepContent>
       <WizardStepFooter

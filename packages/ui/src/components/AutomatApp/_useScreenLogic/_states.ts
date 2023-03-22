@@ -39,6 +39,7 @@ export const states = {
   upload: {
     on: {
       NEXT: "uploadProcess",
+      ERROR: "uploadError",
     },
   },
   uploadProcess: {

@@ -32,7 +32,7 @@ export const Setup = ({ actions }: SetupProps) => {
           label="Copies of each NFT"
           name="amount"
           type="number"
-          max={20}
+          max={5}
           value={fields.amount}
           onChange={handleChange}
         />
@@ -57,10 +57,13 @@ export const Setup = ({ actions }: SetupProps) => {
             onChange={handleChange}
           />
         </div>
-        <Message className="col-span-2">
+        {/* <Message className="col-span-2">
           Tipp You can use the variable{" "}
           <span className="text-purple-500">{`{{index}}`}</span> in both title
           and description fields to add automated numbering.
+        </Message> */}
+        <Message variant="important" className="col-span-2">
+          At the moment we are limited to a max amount of 5 copies.
         </Message>
       </WizardStepContent>
       <WizardStepFooter
