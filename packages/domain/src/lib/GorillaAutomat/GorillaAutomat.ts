@@ -86,6 +86,11 @@ export class GorillaAutomat implements IGorillaAutomat {
     // unpack,sanitize and process zipFile
     const fileArray = await unpackZip(zipFile)
     const { json, array } = await extractFileArrayJson(fileArray)
+
+    console.log(json)
+    // Return false if no json file is present
+    if (!json) return false
+
     if (array.length > 10) return false
 
     // Validate json

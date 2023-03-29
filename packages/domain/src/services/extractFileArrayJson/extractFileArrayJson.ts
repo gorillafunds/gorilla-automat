@@ -9,10 +9,11 @@ export const extractFileArrayJson = async (fileArray: File[]) => {
     }
   })
 
-  const jsonContent = (await jsonFile?.text()) || ""
+  const jsonText = await jsonFile?.text()
+  const jsonContent = jsonText || undefined
 
   return {
-    json: JSON.parse(jsonContent),
+    json: jsonContent ? JSON.parse(jsonContent) : undefined,
     array: returnArray,
   }
 }
