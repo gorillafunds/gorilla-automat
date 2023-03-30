@@ -16,6 +16,7 @@ export const DisconnectWallet = ({
     if (!window) return
     disconnect()
     window.sessionStorage.removeItem("gorillaAutomatScreen")
+    window.sessionStorage.removeItem("gorillaAutomatSetup")
     window.location.reload()
   }
   return (
