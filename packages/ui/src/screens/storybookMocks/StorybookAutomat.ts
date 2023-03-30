@@ -55,6 +55,7 @@ export class StorybookAutomat implements IGorillaAutomat {
 
   public handleZip = () => {
     alert("Handle zip")
+    return true
   }
 
   public uploadToArweave = async () => {

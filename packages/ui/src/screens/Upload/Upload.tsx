@@ -24,12 +24,24 @@ export const Upload = ({ actions, automat }: UploadProps) => {
 
       if (!zipIsValid)
         actions.error({
-          title: "File Error",
-          message: "The max amount of files is 10",
+          title: "File Validation Error",
+          message: (
+            <>
+              <p>The Zip File you've provided is not valid.</p>
+              <p>This could have several reasons:</p>
+              <br />
+              <ul>
+                <li>- You've exceeded the file limit of 5</li>
+                <li>- The JSON-Metadata is not valid</li>
+                <li>- The ZIP-File does not contain a metadata.json at all</li>
+              </ul>
+            </>
+          ),
           showPrevButton: true,
         })
     }
-    validateZip()
+
+    if (file) validateZip()
   }, [file, automat])
 
   return (
