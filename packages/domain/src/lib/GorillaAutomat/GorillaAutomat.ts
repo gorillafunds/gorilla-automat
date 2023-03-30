@@ -202,6 +202,10 @@ export class GorillaAutomat implements IGorillaAutomat {
 
     return true
   }
+
+  public getFileCount = () => {
+    return this.files.length
+  }
 }
 
 type ArweaveConfig = {

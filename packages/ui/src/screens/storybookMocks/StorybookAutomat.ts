@@ -66,4 +66,8 @@ export class StorybookAutomat implements IGorillaAutomat {
     await wait(1000)
     return true
   }
+
+  public getFileCount = () => {
+    return 1
+  }
 }
