@@ -12,6 +12,7 @@ export interface IGorillaAutomat {
   handleZip: Function
   uploadToArweave: Function
   mintAndList: Function
+  getFileCount: Function
 }
 
 export type AutomatConstructor = new () => IGorillaAutomat
