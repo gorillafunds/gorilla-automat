@@ -15,10 +15,7 @@ export const StartProcess = ({ actions }: StartProcessProps) => {
       <WizardStepHeader>Mint &amp; List</WizardStepHeader>
       <WizardStepContent className="mx-auto max-w-lg md:!py-16">
         <Message variant="important">
-          Minting and listing might take a couple of minutes.{" "}
-          <span className="font-semibold">
-            Do not close this tab while processing!
-          </span>
+          Minting and listing might take a couple of minutes.
         </Message>
       </WizardStepContent>
       <WizardStepFooter
